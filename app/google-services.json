@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "205655435598",
+    "project_id": "viblioteca-66092",
+    "storage_bucket": "viblioteca-66092.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:205655435598:android:5b3ca91e5c4aed2061d61f",
+        "android_client_info": {
+          "package_name": "com.danielcastro.viblioteca"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "205655435598-88nh6levsa3obid6d2qiu30kjamagcpg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmjRRD29AXPWnxnXh_QyBbP0I3r6vSY4s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "205655435598-88nh6levsa3obid6d2qiu30kjamagcpg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

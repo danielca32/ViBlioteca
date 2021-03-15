@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+<item
+    android:id="@+id/library_books"
+    android:icon="@drawable/ic_library_books_black_24dp"
+    android:title="Books"
+
+    />
+    <item
+        android:id="@+id/loaned_books"
+        android:icon="@drawable/ic_restore_black_24dp"
+        android:title="Loans"
+        />
+
+    <item
+        android:id="@+id/settings_item"
+        android:icon="@drawable/ic_settings_black_24dp"
+        android:title="Settings"
+        />
+
+    <item
+        android:id="@+id/logout_item"
+        android:icon="@drawable/ic_exit_to_app_black_24dp"
+        android:title="Exit"
+        />
+
+
+</menu>

@@ -1,0 +1,15 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="@string/loan_time">
+
+
+        <ListPreference
+            app:defaultValue="loan_time_array"
+            app:entries="@array/loan_time_array"
+            app:entryValues="@array/loan_time_array"
+            app:key="reply"
+            app:title="@string/loan_time" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

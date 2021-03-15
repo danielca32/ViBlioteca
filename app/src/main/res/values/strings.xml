@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">ViBlioteca</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="loan_time">Loans time limit</string>
+
+
+    <string-array name="loan_time_array">
+        <item>7 Days</item>
+        <item>14 Days</item>
+        <item>21 Days</item>
+        <item>28 Days</item>
+    </string-array>
+</resources>
