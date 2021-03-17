@@ -9,6 +9,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -39,10 +40,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         findViewById(R.id.sign_in_button).setOnClickListener(this);
-
-        //TODO Move to main activity
-        //findViewById(R.id.signOutButton).setOnClickListener(this);
-        //findViewById(R.id.disconnectButton).setOnClickListener(this);
 
         //Building Google sign-in and sign-up option.
         //Configuring Google Sign In
@@ -91,7 +88,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             try {
             // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
-
+                if (!account.getEmail().endsWith("vidalibarraquer.net")) {
+                    Toast.makeText(this, "Account non-authorized.",  Toast.LENGTH_LONG).show();
+                    mGoogleSignInClient.signOut();
+                    throw new ApiException(new Status(requestCode, "Error, account non-authorized."));
+                }
                 //TODO Delete toasts after development
                 Toast.makeText(this, "Google Sign in Succeeded",  Toast.LENGTH_LONG).show();
                 firebaseAuthWithGoogle(account);

@@ -93,7 +93,6 @@ public class BooksRecyclerViewAdapter extends RecyclerView.Adapter<BooksRecycler
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
-                // Handle any errors
             }
         });
 

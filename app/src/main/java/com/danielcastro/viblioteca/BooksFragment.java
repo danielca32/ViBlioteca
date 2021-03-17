@@ -25,9 +25,7 @@ import java.util.List;
 public class BooksFragment extends Fragment {
     private final List<Book> elements = new ArrayList<>();
 
-    public BooksFragment() {
-        // Required empty public constructor
-    }
+    public BooksFragment() {}
 
     public static BooksFragment newInstance() {
         BooksFragment fragment = new BooksFragment(); //TODO ???
@@ -37,9 +35,6 @@ public class BooksFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-
     }
 
     @Override
@@ -57,14 +52,6 @@ public class BooksFragment extends Fragment {
         db.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-
-                Book book1 = new Book();
-                String[] array = new String[10];
-                // textview.setText(book1.getAuthor());
-                // Log.d("VIB", "Value is: " + textview.getText());
-                int i = 0;
 
                 for(DataSnapshot item : dataSnapshot.child("books").getChildren()) {
                     Book book = item.getValue(Book.class);
@@ -81,10 +68,10 @@ public class BooksFragment extends Fragment {
             }
         });
 
-        // Inflate the layout for this fragment
         return rootView;
 
     }
+
     @Override
     public void onStart(){
         super.onStart();

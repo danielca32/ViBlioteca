@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity{
                 new BottomNavigationView.OnNavigationItemSelectedListener(){@Override
                     public boolean onNavigationItemSelected(MenuItem menuItem){
                     Fragment fragment = null;
-
+                    menuItem.setChecked(true);
                     //TODO Replace for new ones
                     switch (menuItem.getItemId()){
                         case R.id.settings_item:
@@ -45,8 +45,9 @@ public class MainActivity extends AppCompatActivity{
                         case R.id.library_books:
                             fragment = new BooksFragment();
                             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
+                            break;
                         case R.id.loaned_books:
-                            fragment = new BooksFragment();
+                            fragment = new LoanFragment();
                             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
                         break;
                         case R.id.logout_item:
@@ -70,7 +71,6 @@ public class MainActivity extends AppCompatActivity{
     @Override
     protected void onStart() {
         super.onStart();
-        System.out.println("Current user      \n\n\n   "+mAuth.getUid());
         if (mAuth.getCurrentUser() == null){
           startActivity(new Intent(this, LoginActivity.class));
         }
