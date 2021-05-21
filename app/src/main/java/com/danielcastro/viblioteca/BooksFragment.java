@@ -3,6 +3,7 @@ package com.danielcastro.viblioteca;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,11 +25,13 @@ import java.util.List;
 
 public class BooksFragment extends Fragment {
     private final List<Book> elements = new ArrayList<>();
+    private User user;
 
-    public BooksFragment() {}
+    public BooksFragment() {
+    }
 
     public static BooksFragment newInstance() {
-        BooksFragment fragment = new BooksFragment(); //TODO ???
+        BooksFragment fragment = new BooksFragment();
         return fragment;
     }
 
@@ -40,28 +43,24 @@ public class BooksFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        DatabaseReference db = FirebaseDatabase.getInstance().getReference();
+        user = ((MainActivity) getActivity()).getUser();
         View rootView = inflater.inflate(R.layout.fragment_books_fragment, container, false);
         RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.bookRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
-        BooksRecyclerViewAdapter adapter = new BooksRecyclerViewAdapter(elements);
+        BooksRecyclerViewAdapter adapter = new BooksRecyclerViewAdapter(this.getContext(), elements, user, getParentFragmentManager());
         recyclerView.setAdapter(adapter);
 
-        DatabaseReference db = FirebaseDatabase.getInstance().getReference();
-
-        db.addListenerForSingleValueEvent(new ValueEventListener() {
+        db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                for(DataSnapshot item : dataSnapshot.child("books").getChildren()) {
+                elements.clear();
+                for (DataSnapshot item : dataSnapshot.child("books").getChildren()) {
                     Book book = item.getValue(Book.class);
                     elements.add(book);
                 }
-
                 adapter.notifyDataSetChanged();
-
             }
-
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -69,13 +68,17 @@ public class BooksFragment extends Fragment {
         });
 
         return rootView;
-
     }
 
     @Override
-    public void onStart(){
+    public void onStart() {
         super.onStart();
+    }
 
+    @SuppressWarnings("ConstantConditions") //Supressing because the parent Activity cannot be null.
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
     }
 }
 

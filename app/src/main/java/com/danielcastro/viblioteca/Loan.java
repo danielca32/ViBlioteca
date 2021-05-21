@@ -1,9 +1,11 @@
 package com.danielcastro.viblioteca;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Loan {
+public class Loan implements Serializable {
 
+    private String ISBN;
     private String code;
     private Date date;
     private Date expirationDate;
@@ -11,15 +13,25 @@ public class Loan {
     private boolean returned;
     private String user;
 
-    public Loan(){};
+    public Loan() {
+    }
 
-    public Loan(String code, Date date, Date expirationDate, boolean markedAsReturned, boolean returned, String user) {
+    public Loan(String ISBN, String code, Date date, Date expirationDate, boolean markedAsReturned, boolean returned, String user) {
+        this.ISBN = ISBN;
         this.code = code;
         this.date = date;
         this.expirationDate = expirationDate;
         this.markedAsReturned = markedAsReturned;
         this.returned = returned;
         this.user = user;
+    }
+
+    public String getISBN() {
+        return ISBN;
+    }
+
+    public void setISBN(String ISBN) {
+        this.ISBN = ISBN;
     }
 
     public String getCode() {
@@ -61,6 +73,7 @@ public class Loan {
     public void setUser(String user) {
         this.user = user;
     }
+
     public Date getExpirationDate() {
         return expirationDate;
     }

@@ -2,10 +2,11 @@ package com.danielcastro.viblioteca;
 
 import com.google.firebase.database.Exclude;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Book {
+public class Book implements Serializable {
 
     private String ISBN;
     private String author;
@@ -17,13 +18,15 @@ public class Book {
     private String publisher;
     private String title;
     private String imageUrl;
+    private String loaned;
+    private String stock;
     private Map<String, String> mapping;
 
 
-    public Book(){
-
+    public Book() {
     }
-    public Book(String ISBN, String author, String code, String date, String description, String edition, String genre, String publisher, String title, String imageUrl) {
+
+    public Book(String ISBN, String author, String code, String date, String description, String edition, String genre, String publisher, String title, String imageUrl, String loaned, String stock) {
         this.ISBN = ISBN;
         this.author = author;
         this.code = code;
@@ -34,8 +37,26 @@ public class Book {
         this.publisher = publisher;
         this.title = title;
         this.imageUrl = imageUrl;
-
+        this.loaned = loaned;
+        this.stock = stock;
     }
+
+    public String getLoaned() {
+        return loaned;
+    }
+
+    public void setLoaned(String loaned) {
+        this.loaned = loaned;
+    }
+
+    public String getStock() {
+        return stock;
+    }
+
+    public void setStock(String stock) {
+        this.stock = stock;
+    }
+
     public String getISBN() {
         return ISBN;
     }
@@ -130,7 +151,9 @@ public class Book {
         result.put("publisher", publisher);
         result.put("title", title);
         result.put("imageUrl", imageUrl);
-        return  result;
+        result.put("loaned", loaned);
+        result.put("stock", stock);
+        return result;
     }
 
 }
