@@ -27,7 +27,8 @@ public class DetailFragment extends Fragment {
     private String imageURL;
 
     private Book book;
-    private TextView detailTextViewTitle, detailTextViewPublisher, detailTextViewAuthor;
+    private TextView detailTextViewTitle, detailTextViewPublisher, detailTextViewAuthor, detailTextViewISBN, detailTextViewDate,
+    detailTextViewEdition, detailTextViewGenre, detailTextViewDescription;
     private ImageView detailImageView;
 
     public DetailFragment() {
@@ -55,12 +56,23 @@ public class DetailFragment extends Fragment {
         if (getArguments() != null) {
             book = ((Book) getArguments().getSerializable(BOOK_CON));
             detailTextViewTitle = rootView.findViewById(R.id.detailTextViewTitle);
-            detailTextViewAuthor = rootView.findViewById(R.id.detailTextViewAuthor);
+          detailTextViewAuthor = rootView.findViewById(R.id.detailTextViewAuthor);
             detailTextViewPublisher = rootView.findViewById(R.id.detailTextViewPublisher);
+            detailTextViewEdition = rootView.findViewById(R.id.detailTextViewEdition);
+            detailTextViewISBN = rootView.findViewById(R.id.detailTextViewISBN);
+            detailTextViewDescription = rootView.findViewById(R.id.detailTextViewDescription);
+            detailTextViewDate = rootView.findViewById(R.id.detailTextViewDate);
+            detailTextViewGenre = rootView.findViewById(R.id.detailTextViewGenre);
+
             detailImageView = rootView.findViewById(R.id.detailImageView);
-            detailTextViewAuthor.setText(book.getAuthor());
-            detailTextViewTitle.setText(book.getTitle());
+        detailTextViewAuthor.setText(book.getAuthor());
+           detailTextViewTitle.setText(book.getTitle());
             detailTextViewPublisher.setText(book.getPublisher());
+            detailTextViewEdition.setText(book.getEdition());
+                    detailTextViewDescription.setText(book.getDescription());
+            detailTextViewDate.setText(book.getDate());
+                    detailTextViewGenre.setText(book.getGenre());
+            detailTextViewISBN.setText(book.getISBN());
             imageRef.child(book.getImageUrl()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {

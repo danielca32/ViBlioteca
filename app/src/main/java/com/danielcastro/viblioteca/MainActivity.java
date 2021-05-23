@@ -26,7 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 public class MainActivity extends AppCompatActivity {
 
 
-    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    String uid;
     //Creating member variable for FirebaseAuth
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     //NavigationBar
@@ -40,7 +40,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         DatabaseReference db = FirebaseDatabase.getInstance().getReference();
-
+        if (mAuth.getCurrentUser() == null) {
+            startActivity(new Intent(this, LoginActivity.class));
+        } else {
+       uid = mAuth.getCurrentUser().getUid();
         //We listen to the User data only here and spread the reference all across the app.
         db.child("users/" + uid).addValueEventListener(new ValueEventListener() {
             @Override
@@ -91,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
                         return false;
                     }
                 });
-    }
+    } }
 
     @Override
     protected void onStart() {

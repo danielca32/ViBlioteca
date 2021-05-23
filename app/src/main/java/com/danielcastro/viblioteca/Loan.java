@@ -7,16 +7,19 @@ public class Loan implements Serializable {
 
     private String ISBN;
     private String code;
-    private Date date;
-    private Date expirationDate;
+    private String date;
+    private String expirationDate;
     private boolean markedAsReturned;
     private boolean returned;
     private String user;
+    private String imageUrl;
+    private String title;
+
 
     public Loan() {
     }
 
-    public Loan(String ISBN, String code, Date date, Date expirationDate, boolean markedAsReturned, boolean returned, String user) {
+    public Loan(String ISBN, String code, String date, String expirationDate, boolean markedAsReturned, boolean returned, String user, String imageUrl, String title) {
         this.ISBN = ISBN;
         this.code = code;
         this.date = date;
@@ -42,11 +45,11 @@ public class Loan implements Serializable {
         this.code = code;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -74,11 +77,27 @@ public class Loan implements Serializable {
         this.user = user;
     }
 
-    public Date getExpirationDate() {
+    public String getExpirationDate() {
         return expirationDate;
     }
 
-    public void setExpirationDate(Date expirationDate) {
+    public void setExpirationDate(String expirationDate) {
         this.expirationDate = expirationDate;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

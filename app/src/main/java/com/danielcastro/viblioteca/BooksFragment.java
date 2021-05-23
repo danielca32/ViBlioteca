@@ -5,7 +5,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -45,17 +44,17 @@ public class BooksFragment extends Fragment {
                              Bundle savedInstanceState) {
         DatabaseReference db = FirebaseDatabase.getInstance().getReference();
         user = ((MainActivity) getActivity()).getUser();
-        View rootView = inflater.inflate(R.layout.fragment_books_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_books, container, false);
         RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.bookRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
         BooksRecyclerViewAdapter adapter = new BooksRecyclerViewAdapter(this.getContext(), elements, user, getParentFragmentManager());
         recyclerView.setAdapter(adapter);
 
-        db.addValueEventListener(new ValueEventListener() {
+        db.child("books").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 elements.clear();
-                for (DataSnapshot item : dataSnapshot.child("books").getChildren()) {
+                for (DataSnapshot item : dataSnapshot.getChildren()) {
                     Book book = item.getValue(Book.class);
                     elements.add(book);
                 }

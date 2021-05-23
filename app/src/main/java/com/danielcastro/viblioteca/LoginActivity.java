@@ -88,11 +88,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             try {
             // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
+                /*
                 if (!account.getEmail().endsWith("vidalibarraquer.net")) {
                     Toast.makeText(this, "Account non-authorized.",  Toast.LENGTH_LONG).show();
                     mGoogleSignInClient.signOut();
                     throw new ApiException(new Status(requestCode, "Error, account non-authorized."));
                 }
+
+                 */
                 //TODO Delete toasts after development
                 Toast.makeText(this, "Google Sign in Succeeded",  Toast.LENGTH_LONG).show();
                 firebaseAuthWithGoogle(account);
