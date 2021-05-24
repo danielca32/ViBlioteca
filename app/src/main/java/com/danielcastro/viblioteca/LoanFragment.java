@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,10 +28,16 @@ import java.util.List;
  * Use the {@link LoanFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class LoanFragment extends Fragment {
+public class LoanFragment extends Fragment  implements SearchView.OnQueryTextListener{
     private final List<Loan> elements = new ArrayList<>();
+    private final List<Loan> originalItems = new ArrayList<>();
+
+    LoansRecyclerViewAdapter adapter;
+    private SearchView searchView;
     private User user;
-    public LoanFragment() {}
+
+    public LoanFragment() {
+    }
 
     public static LoanFragment newInstance() {
         LoanFragment fragment = new LoanFragment();
@@ -50,9 +57,16 @@ public class LoanFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_loan, container, false);
         RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.loanRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
-        LoansRecyclerViewAdapter adapter = new LoansRecyclerViewAdapter(this.getContext(), elements, user, getParentFragmentManager(), db);
+       adapter = new LoansRecyclerViewAdapter(this.getContext(), elements, originalItems, user, getParentFragmentManager(), db);
         recyclerView.setAdapter(adapter);
-        Query myLoansQuery = db.child("loans").orderByChild("user").equalTo(user.getUID());
+        searchView = (SearchView) rootView.findViewById(R.id.loanSearchView);
+        searchView.setOnQueryTextListener(this);
+        Query myLoansQuery;
+        if(user.getRole().equals("VIB_ADMIN")) {
+            myLoansQuery = db.child("loans").orderByChild("user");
+        } else {
+            myLoansQuery = db.child("loans").orderByChild("user").equalTo(user.getUID());
+        }
         myLoansQuery.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -61,6 +75,7 @@ public class LoanFragment extends Fragment {
                     Loan loan = item.getValue(Loan.class);
                     elements.add(loan);
                 }
+                originalItems.addAll(elements);
                 adapter.notifyDataSetChanged();
             }
 
@@ -81,6 +96,18 @@ public class LoanFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+    }
+
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        adapter.filter(newText);
+        return false;
     }
 }
 

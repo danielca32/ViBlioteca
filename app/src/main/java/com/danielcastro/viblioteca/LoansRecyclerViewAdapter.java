@@ -1,14 +1,15 @@
 package com.danielcastro.viblioteca;
 
 
+import android.graphics.Color;
 import android.net.Uri;
-import android.os.Bundle;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,25 +21,30 @@ import android.widget.TextView;
 
 import android.content.Context;
 
-import com.android.volley.RequestQueue;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
+import java.util.stream.Collectors;
 
 public class LoansRecyclerViewAdapter extends RecyclerView.Adapter<LoansRecyclerViewAdapter.ViewHolder> {
 
     private List<Loan> elements;
+    private List<Loan> originalItems;
+
     private FirebaseStorage storage = FirebaseStorage.getInstance();
     private StorageReference imageRef;
     private Context context;
@@ -47,10 +53,11 @@ public class LoansRecyclerViewAdapter extends RecyclerView.Adapter<LoansRecycler
     private User user;
     private FragmentManager fragmentManager;
 
-    public LoansRecyclerViewAdapter(Context context, List<Loan> elements, User user, FragmentManager fragmentManager, DatabaseReference db) {
+    public LoansRecyclerViewAdapter(Context context, List<Loan> elements, List<Loan> originalItems, User user, FragmentManager fragmentManager, DatabaseReference db) {
         this.context = context;
         this.elements = elements;
         this.user = user;
+        this.originalItems = originalItems;
         this.fragmentManager = fragmentManager;
         this.db = db;
     }
@@ -85,16 +92,40 @@ public class LoansRecyclerViewAdapter extends RecyclerView.Adapter<LoansRecycler
             public void onFailure(@NonNull Exception exception) {
             }
         });
+        TimeZone tz = TimeZone.getTimeZone("UTC");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        df.setTimeZone(tz);
+        java.util.Date date = Date.from(Instant.parse(elements.get(position).getExpirationDate()));
+        Date actualDate = new Date();
+        if (elements.get(position).isReturned()) {
+            holder.getCardView().setBackgroundColor(Color.rgb(237, 255, 230));
+        } else if (!elements.get(position).isReturned() && date.before(actualDate)) {
+            holder.getCardView().setBackgroundColor(Color.rgb(255, 230, 230));
+        } else if (date.after(actualDate)) {
+            holder.getCardView().setBackgroundColor(Color.rgb(255, 251, 230));
+        }
     }
 
     @Override
     public int getItemCount() {
-        System.out.println(elements.size());
         return elements.size();
+    }
+
+    public void filter(String stringSearch) {
+        if (stringSearch.length() == 0) {
+            elements.clear();
+            elements.addAll(originalItems);
+        } else {
+            List<Loan> collection = originalItems.stream().filter(i -> i.getName().toLowerCase().contains(stringSearch.toLowerCase()) || i.getTitle().toLowerCase().contains(stringSearch.toLowerCase())).collect(Collectors.toList());
+            elements.clear();
+            elements.addAll(collection);
+        }
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
+        private CardView cardView;
         private TextView loanTextViewISBN, loanTextViewTitle, loanTextViewDateStart, loanTextViewDateEnd;
         private ImageView loanImageView;
 
@@ -102,6 +133,7 @@ public class LoansRecyclerViewAdapter extends RecyclerView.Adapter<LoansRecycler
 
             super(itemView);
 
+            cardView = itemView.findViewById(R.id.card_view_loan);
             loanTextViewISBN = itemView.findViewById(R.id.loanTextViewISBN);
             loanTextViewTitle = itemView.findViewById(R.id.loanTextViewTitle);
             loanTextViewDateStart = itemView.findViewById(R.id.loanTextViewDateStart);
@@ -116,9 +148,12 @@ public class LoansRecyclerViewAdapter extends RecyclerView.Adapter<LoansRecycler
         private void showPopupMenu(View view, int position) {
             PopupMenu popupMenu = new PopupMenu(context, view);
             MenuInflater menuInflater = popupMenu.getMenuInflater();
-            menuInflater.inflate(R.menu.menu_main, popupMenu.getMenu());
+            menuInflater.inflate(R.menu.loan_menu, popupMenu.getMenu());
             popupMenu.setOnMenuItemClickListener(new Menu(position));
-            if (!user.getRole().equals("VIB_ADMIN")) {
+            if (elements.get(position).isReturned()) {
+                popupMenu.getMenu().getItem(1).setEnabled(false);
+            }
+            if (!user.getRole().equals("VIB_ADMIN") || elements.get(position).isReturned()) {
                 popupMenu.getMenu().getItem(2).setEnabled(false);
 
             }
@@ -141,6 +176,10 @@ public class LoansRecyclerViewAdapter extends RecyclerView.Adapter<LoansRecycler
             return loanTextViewDateEnd;
         }
 
+        public CardView getCardView() {
+            return cardView;
+        }
+
         public ImageView getImageElement() {
             return loanImageView;
         }
@@ -156,11 +195,26 @@ public class LoansRecyclerViewAdapter extends RecyclerView.Adapter<LoansRecycler
         @Override
         public boolean onMenuItemClick(MenuItem menuItem) {
             switch (menuItem.getItemId()) {
-                case R.id.menuDetails:
+                case R.id.detailsLoanMenu:
+                    db.child("books").child(elements.get(menuPosition).getISBN()).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            Book book = snapshot.getValue(Book.class);
+                            Fragment fragment = DetailFragment.newInstance(book);
+                            fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit();
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                        }
+                    });
                     break;
-                case R.id.menuLoan:
+                case R.id.extendLoanMenu:
+                    DBHelper.extendLoan(elements.get(menuPosition));
                     break;
-                case R.id.menuDelete:
+                case R.id.markAsReturnedMenu:
+                    DBHelper.returnLoan(elements.get(menuPosition));
+
                     break;
             }
             return false;

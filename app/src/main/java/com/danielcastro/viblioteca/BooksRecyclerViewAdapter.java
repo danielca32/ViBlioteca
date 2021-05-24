@@ -2,7 +2,6 @@ package com.danielcastro.viblioteca;
 
 
 import android.net.Uri;
-import android.os.Bundle;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.ViewGroup;
@@ -20,24 +19,21 @@ import android.widget.TextView;
 
 import android.content.Context;
 
-import com.android.volley.RequestQueue;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class BooksRecyclerViewAdapter extends RecyclerView.Adapter<BooksRecyclerViewAdapter.ViewHolder> {
 
     private List<Book> elements;
+    private List<Book> originalItems;
     private FirebaseStorage storage = FirebaseStorage.getInstance();
     private StorageReference imageRef;
     private Context context;
@@ -46,9 +42,10 @@ public class BooksRecyclerViewAdapter extends RecyclerView.Adapter<BooksRecycler
     private User user;
     private FragmentManager fragmentManager;
 
-    public BooksRecyclerViewAdapter(Context context, List<Book> elements, User user, FragmentManager fragmentManager) {
+    public BooksRecyclerViewAdapter(Context context, List<Book> elements, List<Book> originalItems, User user, FragmentManager fragmentManager) {
         this.context = context;
         this.elements = elements;
+        this.originalItems = originalItems;
         this.user = user;
         this.fragmentManager = fragmentManager;
     }
@@ -75,7 +72,6 @@ public class BooksRecyclerViewAdapter extends RecyclerView.Adapter<BooksRecycler
                 Glide.with(holder.getImageElement().getContext())
                         .load(imageURL)
                         .into(holder.getImageElement());
-              //  Glide.with(holder.getImageElement().getContext()).load(imageURL).into(holder.getImageElement());
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -87,8 +83,19 @@ public class BooksRecyclerViewAdapter extends RecyclerView.Adapter<BooksRecycler
 
     @Override
     public int getItemCount() {
-        System.out.println(elements.size());
         return elements.size();
+    }
+
+    public void filter(String stringSearch){
+        if(stringSearch.length() == 0){
+            elements.clear();
+            elements.addAll(originalItems);
+        } else {
+            List<Book> collection = originalItems.stream().filter(i -> i.getTitle().toLowerCase().contains(stringSearch.toLowerCase())).collect(Collectors.toList());
+            elements.clear();
+            elements.addAll(collection);
+        }
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -113,7 +120,7 @@ public class BooksRecyclerViewAdapter extends RecyclerView.Adapter<BooksRecycler
         private void showPopupMenu(View view, int position) {
             PopupMenu popupMenu = new PopupMenu(context, view);
             MenuInflater menuInflater = popupMenu.getMenuInflater();
-            menuInflater.inflate(R.menu.menu_main, popupMenu.getMenu());
+            menuInflater.inflate(R.menu.book_menu, popupMenu.getMenu());
             popupMenu.setOnMenuItemClickListener(new Menu(position));
             if (!user.getRole().equals("VIB_ADMIN")) {
                 popupMenu.getMenu().getItem(2).setEnabled(false);
@@ -154,8 +161,10 @@ public class BooksRecyclerViewAdapter extends RecyclerView.Adapter<BooksRecycler
                     fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit();
                     break;
                 case R.id.menuLoan:
+                    DBHelper.loanBook(elements.get(menuPosition),user);
                     break;
                 case R.id.menuDelete:
+                    DBHelper.reduceBookStock(elements.get(menuPosition));
                     break;
             }
             return false;

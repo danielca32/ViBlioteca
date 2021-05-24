@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,10 +23,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class BooksFragment extends Fragment {
+public class BooksFragment extends Fragment implements SearchView.OnQueryTextListener {
     private final List<Book> elements = new ArrayList<>();
-    private User user;
+    private final List<Book> originalItems = new ArrayList<>();
 
+    private SearchView searchView;
+    private User user;
+    BooksRecyclerViewAdapter adapter;
     public BooksFragment() {
     }
 
@@ -42,13 +46,16 @@ public class BooksFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         DatabaseReference db = FirebaseDatabase.getInstance().getReference();
         user = ((MainActivity) getActivity()).getUser();
         View rootView = inflater.inflate(R.layout.fragment_books, container, false);
         RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.bookRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
-        BooksRecyclerViewAdapter adapter = new BooksRecyclerViewAdapter(this.getContext(), elements, user, getParentFragmentManager());
+        adapter = new BooksRecyclerViewAdapter(this.getContext(), elements, originalItems, user, getParentFragmentManager());
         recyclerView.setAdapter(adapter);
+        searchView = (SearchView) rootView.findViewById(R.id.bookSearchView);
+        searchView.setOnQueryTextListener(this);
 
         db.child("books").addValueEventListener(new ValueEventListener() {
             @Override
@@ -58,6 +65,7 @@ public class BooksFragment extends Fragment {
                     Book book = item.getValue(Book.class);
                     elements.add(book);
                 }
+                originalItems.addAll(elements);
                 adapter.notifyDataSetChanged();
             }
 
@@ -78,6 +86,17 @@ public class BooksFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        adapter.filter(newText);
+        return false;
     }
 }
 

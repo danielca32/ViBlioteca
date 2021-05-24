@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
                 user.setRole(snapshot.getValue(User.class).getRole());
                 user.setUID(snapshot.getValue(User.class).getUID());
                 user.setActive(snapshot.getValue(User.class).isActive());
+                user.setName(snapshot.getValue(User.class).getName());
             }
 
             @Override

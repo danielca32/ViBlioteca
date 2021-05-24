@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/detailsLoanMenu"
+        android:title="Details"
+        />
+    <item
+        android:id="@+id/extendLoanMenu"
+        android:title="Extend loan for 7 days" />
+    <item
+        android:id="@+id/markAsReturnedMenu"
+        android:title="Mark as returned" />
+</menu>

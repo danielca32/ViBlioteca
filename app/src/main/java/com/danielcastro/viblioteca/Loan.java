@@ -5,28 +5,38 @@ import java.util.Date;
 
 public class Loan implements Serializable {
 
+    private String key;
     private String ISBN;
-    private String code;
     private String date;
     private String expirationDate;
-    private boolean markedAsReturned;
     private boolean returned;
     private String user;
     private String imageUrl;
     private String title;
+    private String name;
 
 
     public Loan() {
     }
 
-    public Loan(String ISBN, String code, String date, String expirationDate, boolean markedAsReturned, boolean returned, String user, String imageUrl, String title) {
+    public Loan(String key, String ISBN, String date, String expirationDate, boolean returned, String user, String imageUrl, String title, String name) {
+        this.key = key;
         this.ISBN = ISBN;
-        this.code = code;
         this.date = date;
+        this.imageUrl = imageUrl;
+        this.title = title;
         this.expirationDate = expirationDate;
-        this.markedAsReturned = markedAsReturned;
         this.returned = returned;
         this.user = user;
+        this.name = name;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public String getISBN() {
@@ -37,28 +47,12 @@ public class Loan implements Serializable {
         this.ISBN = ISBN;
     }
 
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
     public String getDate() {
         return date;
     }
 
     public void setDate(String date) {
         this.date = date;
-    }
-
-    public boolean isMarkedAsReturned() {
-        return markedAsReturned;
-    }
-
-    public void setMarkedAsReturned(boolean markedAsReturned) {
-        this.markedAsReturned = markedAsReturned;
     }
 
     public boolean isReturned() {
@@ -99,5 +93,13 @@ public class Loan implements Serializable {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
