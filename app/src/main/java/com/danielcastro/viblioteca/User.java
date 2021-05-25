@@ -30,9 +30,7 @@ public class User implements Serializable {
         return active;
     }
 
-    public void setActive(boolean active) {
-        this.active = active;
-    }
+    public void setActive(boolean active) { this.active = active; }
 
     public String getRole() {
         return role;

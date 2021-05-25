@@ -33,15 +33,12 @@ public class LoanFragment extends Fragment  implements SearchView.OnQueryTextLis
     private final List<Loan> originalItems = new ArrayList<>();
 
     LoansRecyclerViewAdapter adapter;
-    private SearchView searchView;
-    private User user;
 
     public LoanFragment() {
     }
 
     public static LoanFragment newInstance() {
-        LoanFragment fragment = new LoanFragment();
-        return fragment;
+        return new LoanFragment();
     }
 
     @Override
@@ -53,13 +50,13 @@ public class LoanFragment extends Fragment  implements SearchView.OnQueryTextLis
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         DatabaseReference db = FirebaseDatabase.getInstance().getReference();
-        user = ((MainActivity) getActivity()).getUser();
+        User user = DBHelper.getUser();
         View rootView = inflater.inflate(R.layout.fragment_loan, container, false);
-        RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.loanRecyclerView);
+        RecyclerView recyclerView = rootView.findViewById(R.id.loanRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
        adapter = new LoansRecyclerViewAdapter(this.getContext(), elements, originalItems, user, getParentFragmentManager(), db);
         recyclerView.setAdapter(adapter);
-        searchView = (SearchView) rootView.findViewById(R.id.loanSearchView);
+        SearchView searchView = rootView.findViewById(R.id.loanSearchView);
         searchView.setOnQueryTextListener(this);
         Query myLoansQuery;
         if(user.getRole().equals("VIB_ADMIN")) {
@@ -92,7 +89,6 @@ public class LoanFragment extends Fragment  implements SearchView.OnQueryTextLis
         super.onStart();
     }
 
-    @SuppressWarnings("ConstantConditions") //Supressing because the parent Activity cannot be null.
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);

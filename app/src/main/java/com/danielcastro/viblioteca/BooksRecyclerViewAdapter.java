@@ -1,7 +1,5 @@
 package com.danielcastro.viblioteca;
 
-
-import android.net.Uri;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.ViewGroup;
@@ -20,9 +18,6 @@ import android.widget.TextView;
 import android.content.Context;
 
 import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -32,15 +27,14 @@ import java.util.stream.Collectors;
 
 public class BooksRecyclerViewAdapter extends RecyclerView.Adapter<BooksRecyclerViewAdapter.ViewHolder> {
 
-    private List<Book> elements;
-    private List<Book> originalItems;
-    private FirebaseStorage storage = FirebaseStorage.getInstance();
+    private final List<Book> elements;
+    private final List<Book> originalItems;
+    private final FirebaseStorage storage;
+    private final Context context;
+    private final User user;
+    private final FragmentManager fragmentManager;
     private StorageReference imageRef;
-    private Context context;
     private String imageURL;
-    private DatabaseReference db;
-    private User user;
-    private FragmentManager fragmentManager;
 
     public BooksRecyclerViewAdapter(Context context, List<Book> elements, List<Book> originalItems, User user, FragmentManager fragmentManager) {
         this.context = context;
@@ -48,6 +42,7 @@ public class BooksRecyclerViewAdapter extends RecyclerView.Adapter<BooksRecycler
         this.originalItems = originalItems;
         this.user = user;
         this.fragmentManager = fragmentManager;
+        this.storage = FirebaseStorage.getInstance();
     }
 
     @NonNull
@@ -64,19 +59,13 @@ public class BooksRecyclerViewAdapter extends RecyclerView.Adapter<BooksRecycler
         holder.getTxtElementAuthor().setText(elements.get(position).getAuthor());
         holder.getTxtElementPublisher().setText(elements.get(position).getPublisher());
 
-        imageRef.child(elements.get(position).getImageUrl()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                imageURL = uri.toString();
+        imageRef.child(elements.get(position).getImageUrl()).getDownloadUrl().addOnSuccessListener(uri -> {
+            imageURL = uri.toString();
 
-                Glide.with(holder.getImageElement().getContext())
-                        .load(imageURL)
-                        .into(holder.getImageElement());
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-            }
+            Glide.with(holder.getImageElement().getContext())
+                    .load(imageURL)
+                    .into(holder.getImageElement());
+        }).addOnFailureListener(exception -> {
         });
 
     }
@@ -86,8 +75,8 @@ public class BooksRecyclerViewAdapter extends RecyclerView.Adapter<BooksRecycler
         return elements.size();
     }
 
-    public void filter(String stringSearch){
-        if(stringSearch.length() == 0){
+    public void filter(String stringSearch) {
+        if (stringSearch.length() == 0) {
             elements.clear();
             elements.addAll(originalItems);
         } else {
@@ -100,11 +89,10 @@ public class BooksRecyclerViewAdapter extends RecyclerView.Adapter<BooksRecycler
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView bookTextViewTitle, bookTextViewPublisher, bookTextViewAuthor;
-        private ImageView bookImageView;
+        private final TextView bookTextViewTitle, bookTextViewPublisher, bookTextViewAuthor;
+        private final ImageView bookImageView;
 
         public ViewHolder(View itemView) {
-
             super(itemView);
             bookTextViewTitle = itemView.findViewById(R.id.bookTextViewTitle);
             bookTextViewAuthor = itemView.findViewById(R.id.bookTextViewAuthor);
@@ -155,17 +143,14 @@ public class BooksRecyclerViewAdapter extends RecyclerView.Adapter<BooksRecycler
 
         @Override
         public boolean onMenuItemClick(MenuItem menuItem) {
-            switch (menuItem.getItemId()) {
-                case R.id.menuDetails:
-                    Fragment fragment = DetailFragment.newInstance(elements.get(menuPosition));
-                    fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit();
-                    break;
-                case R.id.menuLoan:
-                    DBHelper.loanBook(elements.get(menuPosition),user);
-                    break;
-                case R.id.menuDelete:
-                    DBHelper.reduceBookStock(elements.get(menuPosition));
-                    break;
+            int itemId = menuItem.getItemId();
+            if (itemId == R.id.menuDetails) {
+                Fragment fragment = DetailFragment.newInstance(elements.get(menuPosition));
+                fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit();
+            } else if (itemId == R.id.menuLoan) {
+                DBHelper.loanBook(elements.get(menuPosition), user);
+            } else if (itemId == R.id.menuDelete) {
+                DBHelper.reduceBookStock(elements.get(menuPosition));
             }
             return false;
         }

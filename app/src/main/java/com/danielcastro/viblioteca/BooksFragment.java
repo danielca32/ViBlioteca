@@ -27,15 +27,13 @@ public class BooksFragment extends Fragment implements SearchView.OnQueryTextLis
     private final List<Book> elements = new ArrayList<>();
     private final List<Book> originalItems = new ArrayList<>();
 
-    private SearchView searchView;
-    private User user;
     BooksRecyclerViewAdapter adapter;
+
     public BooksFragment() {
     }
 
     public static BooksFragment newInstance() {
-        BooksFragment fragment = new BooksFragment();
-        return fragment;
+        return new BooksFragment();
     }
 
     @Override
@@ -48,13 +46,14 @@ public class BooksFragment extends Fragment implements SearchView.OnQueryTextLis
                              Bundle savedInstanceState) {
 
         DatabaseReference db = FirebaseDatabase.getInstance().getReference();
-        user = ((MainActivity) getActivity()).getUser();
         View rootView = inflater.inflate(R.layout.fragment_books, container, false);
-        RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.bookRecyclerView);
+        RecyclerView recyclerView = rootView.findViewById(R.id.bookRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
+        User user = DBHelper.getUser();
+        if (user != null){
         adapter = new BooksRecyclerViewAdapter(this.getContext(), elements, originalItems, user, getParentFragmentManager());
-        recyclerView.setAdapter(adapter);
-        searchView = (SearchView) rootView.findViewById(R.id.bookSearchView);
+        recyclerView.setAdapter(adapter); }
+        SearchView searchView = rootView.findViewById(R.id.bookSearchView);
         searchView.setOnQueryTextListener(this);
 
         db.child("books").addValueEventListener(new ValueEventListener() {
@@ -82,7 +81,6 @@ public class BooksFragment extends Fragment implements SearchView.OnQueryTextLis
         super.onStart();
     }
 
-    @SuppressWarnings("ConstantConditions") //Supressing because the parent Activity cannot be null.
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);

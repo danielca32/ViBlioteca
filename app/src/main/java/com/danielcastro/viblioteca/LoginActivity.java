@@ -1,29 +1,27 @@
 package com.danielcastro.viblioteca;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+
+
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.tasks.OnCompleteListener;
+
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
-
 
 
     //Request code, any integer can be used.
@@ -44,9 +42,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         //Building Google sign-in and sign-up option.
         //Configuring Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-        // for the requestIdToken, use getString(R.string.default_web_client_id), this is in the values.xml file that
-        // is generated from your google-services.json file (data from your firebase project), uses the google-sign-in method
-        // web api key
+                // for the requestIdToken, use getString(R.string.default_web_client_id), this is in the values.xml file that
+                // is generated from your google-services.json file (data from your firebase project), uses the google-sign-in method
+                // web api key
                 .requestIdToken(getString(R.string.default_web_client_id))//Default_web_client_id will be matched with the
                 .requestEmail()
                 .build();
@@ -61,9 +59,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
         //If it comes from the logout button, logout from Google too.
-        if (getIntent().hasExtra("logout")){
-        mGoogleSignInClient.signOut();}
+        if (getIntent().hasExtra("logout")) {
+            mGoogleSignInClient.signOut();
+        }
     }
+
     //Creating onStart() method.
     @Override
     public void onStart() {
@@ -86,7 +86,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
-            // Google Sign In was successful, authenticate with Firebase
+                // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 /*
                 if (!account.getEmail().endsWith("vidalibarraquer.net")) {
@@ -96,15 +96,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
 
                  */
-                //TODO Delete toasts after development
-                Toast.makeText(this, "Google Sign in Succeeded",  Toast.LENGTH_LONG).show();
-                firebaseAuthWithGoogle(account);
+                Toast.makeText(this, "Google Sign in Succeeded", Toast.LENGTH_LONG).show();
+                if (account != null) {
+                    firebaseAuthWithGoogle(account);
+                } else {
+                    throw new NullPointerException();
+                }
             } catch (ApiException e) {
-            // Google Sign In failed, update UI appropriately
 
-                //TODO Update UI Appropiately
-
-                Toast.makeText(this, "Google Sign in Failed " + e,  Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Google Sign in Failed " + e, Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -114,38 +114,32 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         //Calling get credential from the GoogleAuthProvider
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+        //Override th onComplete() to see we are successful or not.
         mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    //Override th onComplete() to see we are successful or not.
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
                         // Update UI with the sign-in user's information
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            Toast.makeText(LoginActivity.this, "Firebase Authentication Succeeded ",  Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            startActivity(intent);
-                        } else {
+                        Toast.makeText(LoginActivity.this, "Success", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        startActivity(intent);
+                    } else {
                         // If sign-in fails to display a message to the user.
-                            //TODO Update UI Appropiately
-                            Toast.makeText(LoginActivity.this, "Firebase Authentication failed:" + task.getException(),  Toast.LENGTH_LONG).show();
-                        }
+                        Toast.makeText(LoginActivity.this, "Error" + task.getException(), Toast.LENGTH_LONG).show();
                     }
                 });
     }
 
-    public void signInToGoogle(){
+    public void signInToGoogle() {
         //Calling Intent and call startActivityForResult() method
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
 
-
-
-
     @Override
-    public void onClick(View v) { signInToGoogle(); }
+    public void onClick(View v) {
+        signInToGoogle();
+    }
 
 }
 

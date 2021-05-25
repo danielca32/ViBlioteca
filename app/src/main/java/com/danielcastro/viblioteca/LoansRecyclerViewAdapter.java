@@ -1,8 +1,8 @@
 package com.danielcastro.viblioteca;
 
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
-import android.net.Uri;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.ViewGroup;
@@ -22,15 +22,12 @@ import android.widget.TextView;
 import android.content.Context;
 
 import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -42,16 +39,16 @@ import java.util.stream.Collectors;
 
 public class LoansRecyclerViewAdapter extends RecyclerView.Adapter<LoansRecyclerViewAdapter.ViewHolder> {
 
-    private List<Loan> elements;
-    private List<Loan> originalItems;
+    private final List<Loan> elements;
+    private final List<Loan> originalItems;
 
-    private FirebaseStorage storage = FirebaseStorage.getInstance();
+    private final FirebaseStorage storage = FirebaseStorage.getInstance();
+    private final Context context;
+    private final DatabaseReference db;
+    private final User user;
+    private final FragmentManager fragmentManager;
     private StorageReference imageRef;
-    private Context context;
     private String imageURL;
-    private DatabaseReference db;
-    private User user;
-    private FragmentManager fragmentManager;
 
     public LoansRecyclerViewAdapter(Context context, List<Loan> elements, List<Loan> originalItems, User user, FragmentManager fragmentManager, DatabaseReference db) {
         this.context = context;
@@ -78,31 +75,25 @@ public class LoansRecyclerViewAdapter extends RecyclerView.Adapter<LoansRecycler
         holder.getTxtElementDateStart().setText(elements.get(position).getDate().substring(0, 9));
         holder.getTxtElementDateEnd().setText(elements.get(position).getExpirationDate().substring(0, 9));
 
-        imageRef.child(elements.get(position).getImageUrl()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                imageURL = uri.toString();
+        imageRef.child(elements.get(position).getImageUrl()).getDownloadUrl().addOnSuccessListener(uri -> {
+            imageURL = uri.toString();
 
-                Glide.with(holder.getImageElement().getContext())
-                        .load(imageURL)
-                        .into(holder.getImageElement());
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-            }
+            Glide.with(holder.getImageElement().getContext())
+                    .load(imageURL)
+                    .into(holder.getImageElement());
         });
+
         TimeZone tz = TimeZone.getTimeZone("UTC");
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        @SuppressLint("SimpleDateFormat") DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
         df.setTimeZone(tz);
         java.util.Date date = Date.from(Instant.parse(elements.get(position).getExpirationDate()));
         Date actualDate = new Date();
         if (elements.get(position).isReturned()) {
-            holder.getCardView().setBackgroundColor(Color.rgb(237, 255, 230));
+            holder.getCardView().setCardBackgroundColor(Color.rgb(237, 255, 230));
         } else if (!elements.get(position).isReturned() && date.before(actualDate)) {
-            holder.getCardView().setBackgroundColor(Color.rgb(255, 230, 230));
+            holder.getCardView().setCardBackgroundColor(Color.rgb(255, 230, 230));
         } else if (date.after(actualDate)) {
-            holder.getCardView().setBackgroundColor(Color.rgb(255, 251, 230));
+            holder.getCardView().setCardBackgroundColor(Color.rgb(255, 251, 230));
         }
     }
 
@@ -125,9 +116,9 @@ public class LoansRecyclerViewAdapter extends RecyclerView.Adapter<LoansRecycler
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private CardView cardView;
-        private TextView loanTextViewISBN, loanTextViewTitle, loanTextViewDateStart, loanTextViewDateEnd;
-        private ImageView loanImageView;
+        private final CardView cardView;
+        private final TextView loanTextViewISBN, loanTextViewTitle, loanTextViewDateStart, loanTextViewDateEnd;
+        private final ImageView loanImageView;
 
         public ViewHolder(View itemView) {
 
@@ -194,28 +185,24 @@ public class LoansRecyclerViewAdapter extends RecyclerView.Adapter<LoansRecycler
 
         @Override
         public boolean onMenuItemClick(MenuItem menuItem) {
-            switch (menuItem.getItemId()) {
-                case R.id.detailsLoanMenu:
-                    db.child("books").child(elements.get(menuPosition).getISBN()).addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            Book book = snapshot.getValue(Book.class);
-                            Fragment fragment = DetailFragment.newInstance(book);
-                            fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit();
-                        }
+            int itemId = menuItem.getItemId();
+            if (itemId == R.id.detailsLoanMenu) {
+                db.child("books").child(elements.get(menuPosition).getISBN()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        Book book = snapshot.getValue(Book.class);
+                        Fragment fragment = DetailFragment.newInstance(book);
+                        fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit();
+                    }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-                        }
-                    });
-                    break;
-                case R.id.extendLoanMenu:
-                    DBHelper.extendLoan(elements.get(menuPosition));
-                    break;
-                case R.id.markAsReturnedMenu:
-                    DBHelper.returnLoan(elements.get(menuPosition));
-
-                    break;
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
+            } else if (itemId == R.id.extendLoanMenu) {
+                DBHelper.extendLoan(elements.get(menuPosition));
+            } else if (itemId == R.id.markAsReturnedMenu) {
+                DBHelper.returnLoan(elements.get(menuPosition));
             }
             return false;
         }

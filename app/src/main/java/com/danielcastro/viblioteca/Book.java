@@ -1,10 +1,6 @@
 package com.danielcastro.viblioteca;
 
-import com.google.firebase.database.Exclude;
-
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Book implements Serializable {
 
@@ -20,8 +16,6 @@ public class Book implements Serializable {
     private String imageUrl;
     private String loaned;
     private String stock;
-    private Map<String, String> mapping;
-
 
     public Book() {
     }
@@ -137,23 +131,5 @@ public class Book implements Serializable {
         this.imageUrl = imageUrl;
     }
 
-    //Not actually in use due to Firebase libraries.
-    @Exclude
-    public Map<String, String> toMap() {
-        HashMap<String, String> result = new HashMap<>();
-        result.put("ISBN", ISBN);
-        result.put("author", author);
-        result.put("code", code);
-        result.put("date", date);
-        result.put("description", description);
-        result.put("edition", edition);
-        result.put("genre", genre);
-        result.put("publisher", publisher);
-        result.put("title", title);
-        result.put("imageUrl", imageUrl);
-        result.put("loaned", loaned);
-        result.put("stock", stock);
-        return result;
-    }
 
 }

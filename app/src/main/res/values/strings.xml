@@ -13,4 +13,30 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="action_search">Search</string>
+    <string name="imageViewContentDescription">Image of a book</string>
+    <string name="title">Title</string>
+    <string name="author">Author</string>
+    <string name="synopsis">Synopsis</string>
+    <string name="description">Description</string>
+    <string name="ISBNLabel">ISBN:</string>
+    <string name="ISBN">ISBN</string>
+    <string name="publisherLabel">Publisher:</string>
+    <string name="publisher">Publisher</string>
+    <string name="publicationDateLabel">Publication date:</string>
+    <string name="publishingDateLabel">Publishing date:</string>
+    <string name="publishingDate">Publishing date</string>
+    <string name="genreLabel">"Genre: "</string>
+    <string name="genre">Genre</string>
+    <string name="editionLabel">Edition:</string>
+    <string name="edition">Edition</string>
+    <string name="loan">Loan</string>
+    <string name="edit">Edit</string>
+    <string name="reduceStock">Reduce Stock by 1</string>
+    <string name="seeDetails">See Details</string>
+    <string name="extendLoan">Extend Loan 7 Days</string>
+    <string name="markAsReturned">Mark as returned</string>
+    <string name="menuBook">Books</string>
+    <string name="menuLoan">Loans</string>
+    <string name="menuSettings">Settings</string>
+    <string name="signOut">Sign Out</string>
 </resources>

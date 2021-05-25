@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,271 +7,299 @@
     android:background="#eaeaea"
     tools:context=".DetailFragment">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <androidx.cardview.widget.CardView
+            android:id="@+id/detailCard_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="320dp"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            card_view:cardBackgroundColor="#ffffff"
+            card_view:cardCornerRadius="6dp"
+            card_view:contentPadding="8dp"
+            card_view:contentPaddingBottom="8dp">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/detailCard_view"
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="320dp"
-                android:layout_gravity="center"
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="5dp"
-                card_view:cardBackgroundColor="#ffffff"
-                card_view:contentPadding="4dp"
-                card_view:contentPaddingBottom="8dp">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/detailTextViewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@null"
+                    android:hint="@string/title"
+                    android:importantForAutofill="no"
+                    android:inputType="text"
+                    android:paddingBottom="2dp"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/detailTextViewAuthor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@null"
+                    android:hint="@string/author"
+                    android:importantForAutofill="no"
+                    android:inputType="text"
+                    android:paddingBottom="12dp"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                <ImageView
+                    android:id="@+id/detailImageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:contentDescription="@string/imageViewContentDescription" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/detailCard_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="5dp"
+            card_view:cardBackgroundColor="#ffffff"
+            card_view:cardCornerRadius="6dp"
+            card_view:contentPadding="8dp"
+            card_view:contentPaddingBottom="8dp">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/detailTextViewDescriptionName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/synopsis"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/detailTextViewDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:hint="@string/description"
+                    android:importantForAutofill="no"
+                    android:inputType="textMultiLine"
+                    android:justificationMode="inter_word"
+                    android:textAllCaps="false" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/detailCard_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="5dp"
+            card_view:cardBackgroundColor="#ffffff"
+            card_view:cardCornerRadius="6dp"
+            card_view:contentPadding="8dp"
+            card_view:contentPaddingBottom="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <EditText
-                        android:id="@+id/detailTextViewTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:background="@null"
-                        android:paddingBottom="2dp"
-                        android:textAlignment="center"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                        android:textStyle="bold" />
-
-                    <EditText
-                        android:id="@+id/detailTextViewAuthor"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:background="@null"
-                        android:paddingBottom="12dp"
-                        android:textAlignment="center"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-
-                    <ImageView
-                        android:id="@+id/detailImageView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_horizontal"
-                        android:contentDescription="Image of a book" />
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/detailCard_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginVertical="5dp"
-                card_view:cardBackgroundColor="#ffffff"
-                card_view:contentPadding="4dp"
-                card_view:contentPaddingBottom="8dp">
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/detailTextViewDescriptionName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Synopsis"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        android:textStyle="bold"
-                        android:maxLines="30"/>
-
-                    <EditText
-                        android:id="@+id/detailTextViewDescription"
+                        android:id="@+id/detailTextViewISBNName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@null"
-                        android:justificationMode="inter_word"
-                        android:textAllCaps="false" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
+                        android:paddingStart="2dp"
+                        android:paddingEnd="8dp"
+                        android:text="@string/ISBNLabel" />
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/detailCard_details"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginVertical="5dp"
-                card_view:cardBackgroundColor="#ffffff"
-                card_view:contentPadding="4dp"
-                card_view:contentPaddingBottom="8dp">
+                    <EditText
+                        android:id="@+id/detailTextViewISBN"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:hint="@string/ISBN"
+                        android:importantForAutofill="no"
+                        android:inputType="text" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/detailTextViewPublisherName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:paddingStart="2dp"
+                        android:paddingEnd="8dp"
+                        android:text="@string/publisherLabel" />
+
+                    <EditText
+                        android:id="@+id/detailTextViewPublisher"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:hint="@string/publisher"
+                        android:importantForAutofill="no"
+                        android:inputType="text" />
+
+
+                </LinearLayout>
 
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/detailTextViewDateName"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:background="@null"
+                        android:paddingStart="2dp"
+                        android:paddingEnd="8dp"
+                        android:text="@string/publishingDateLabel" />
 
-                        <TextView
-                            android:id="@+id/detailTextViewISBNName"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@null"
-                            android:paddingRight="8dp"
-                            android:text="ISBN:" />
-
-                        <EditText
-                            android:id="@+id/detailTextViewISBN"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@null" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <EditText
+                        android:id="@+id/detailTextViewPublishingTime"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/detailTextViewPublisherName"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@null"
-                            android:paddingRight="8dp"
-                            android:text="Publisher:" />
-
-                        <EditText
-                            android:id="@+id/detailTextViewPublisher"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@null" />
-
-
-                    </LinearLayout>
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/detailTextViewDateName"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@null"
-                            android:paddingRight="8dp"
-                            android:text="Publication date:" />
-
-                        <EditText
-                            android:id="@+id/detailTextViewDate"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@null" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/detailTextViewGenreName"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@null"
-                            android:paddingRight="8dp"
-                            android:text="Genre:" />
-
-                        <EditText
-                            android:id="@+id/detailTextViewGenre"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@null" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/detailTextViewEditionName"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@null"
-                            android:paddingRight="8dp"
-                            android:text="Edition:" />
-
-                        <EditText
-                            android:id="@+id/detailTextViewEdition"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@null" />
-                    </LinearLayout>
-
-
+                        android:background="@null"
+                        android:hint="@string/publishingDate"
+                        android:importantForAutofill="no"
+                        android:inputType="text" />
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/detailCard_loan"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginVertical="5dp"
-                android:backgroundTint="@color/purple_500"
-                card_view:cardBackgroundColor="#ffffff"
-                card_view:contentPadding="4dp"
-                card_view:contentPaddingBottom="8dp">
-
-                <EditText
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="24dp"
-                    android:layout_gravity="center"
-                    android:background="@null"
-                    android:text="Loan"
-                    android:textAlignment="center"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/white"
-                    android:textStyle="bold|italic" />
-            </androidx.cardview.widget.CardView>
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/detailCard_edit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginVertical="5dp"
-                android:backgroundTint="@color/purple_500"
-                card_view:cardBackgroundColor="#ffffff"
-                card_view:contentPadding="4dp"
-                card_view:contentPaddingBottom="8dp">
+                    <TextView
+                        android:id="@+id/detailTextViewGenreName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:paddingStart="2dp"
+                        android:paddingEnd="8dp"
+                        android:text="@string/genreLabel" />
 
-                <EditText
+                    <EditText
+                        android:id="@+id/detailTextViewGenre"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:hint="@string/genre"
+                        android:importantForAutofill="no"
+                        android:inputType="text" />
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="24dp"
-                    android:layout_gravity="center"
-                    android:background="@null"
-                    android:text="Edit"
-                    android:textAlignment="center"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/white"
-                    android:textStyle="bold|italic" />
-            </androidx.cardview.widget.CardView>
-        </LinearLayout>
-    </ScrollView>
-</FrameLayout>
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/detailTextViewEditionName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:paddingStart="2dp"
+                        android:paddingEnd="8dp"
+                        android:text="@string/editionLabel" />
+
+                    <EditText
+                        android:id="@+id/detailTextViewEdition"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:hint="@string/edition"
+                        android:importantForAutofill="no"
+                        android:inputType="text" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/detailCard_loan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="5dp"
+            android:backgroundTint="@color/purple_500"
+            card_view:cardBackgroundColor="#ffffff"
+            card_view:cardCornerRadius="6dp"
+            card_view:contentPadding="4dp"
+            card_view:contentPaddingBottom="8dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:background="@null"
+                android:text="@string/loan"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/white"
+                android:textStyle="bold|italic" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/detailCard_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="5dp"
+            android:backgroundTint="@color/purple_500"
+            card_view:cardBackgroundColor="#ffffff"
+            card_view:cardCornerRadius="6dp"
+            card_view:contentPadding="4dp"
+            card_view:contentPaddingBottom="8dp">
+            
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:background="@null"
+                android:text="@string/edit"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/white"
+                android:textStyle="bold|italic" />
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+</ScrollView>

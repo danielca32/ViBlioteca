@@ -4,25 +4,25 @@
 <item
     android:id="@+id/library_books"
     android:icon="@drawable/ic_library_books_black_24dp"
-    android:title="Books"
+    android:title="@string/menuBook"
 
     />
     <item
         android:id="@+id/loaned_books"
         android:icon="@drawable/ic_restore_black_24dp"
-        android:title="Loans"
+        android:title="@string/menuLoan"
         />
 
     <item
         android:id="@+id/settings_item"
         android:icon="@drawable/ic_settings_black_24dp"
-        android:title="Settings"
+        android:title="@string/menuSettings"
         />
 
     <item
         android:id="@+id/logout_item"
         android:icon="@drawable/ic_exit_to_app_black_24dp"
-        android:title="Exit"
+        android:title="@string/signOut"
         />
 
 

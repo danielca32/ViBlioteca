@@ -4,13 +4,12 @@
 
     <item
         android:id="@+id/menuDetails"
-        android:title="Details"
+        android:title="@string/seeDetails"
         />
     <item
         android:id="@+id/menuLoan"
-        android:title="Loan book" />
+        android:title="@string/loan"/>
     <item
         android:id="@+id/menuDelete"
-        android:title="Reduce stock by 1" />
-
+        android:title="@string/reduceStock" />
 </menu>

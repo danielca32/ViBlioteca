@@ -15,7 +15,7 @@
         android:layout_marginVertical="5dp"
         card_view:cardBackgroundColor="#ffffff"
         card_view:contentPadding="4dp"
-
+        card_view:cardCornerRadius="6dp"
         >
 
         <LinearLayout
@@ -28,7 +28,7 @@
                 android:layout_width="132dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="start"
-                android:contentDescription="Image of a book" />
+                android:contentDescription="@string/imageViewContentDescription" />
 
             <LinearLayout
                 android:layout_width="match_parent"
