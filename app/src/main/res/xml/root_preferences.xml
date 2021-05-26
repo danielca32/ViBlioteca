@@ -1,15 +1,32 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory app:title="@string/loan_time">
+    <CheckBoxPreference
+        android:title="@string/lowDataMode"
+        android:defaultValue="false"
+        android:summary="@string/lowDataModeSummary"
+        android:key="lowDataModeKey" />
 
+    <ListPreference
+        app:defaultValue="loan_time_array"
+        app:entries="@array/loan_time_array"
+        app:entryValues="@array/loan_time_array"
+        app:key="loanTimeKey"
+        app:title="@string/loan_time"
+        android:summary="@string/loanSummary"/>
 
-        <ListPreference
-            app:defaultValue="loan_time_array"
-            app:entries="@array/loan_time_array"
-            app:entryValues="@array/loan_time_array"
-            app:key="reply"
-            app:title="@string/loan_time" />
+    <ListPreference
+        app:defaultValue="set_language_array"
+        app:entries="@array/set_language_array"
+        app:entryValues="@array/set_language_array"
+        app:key="languageKey"
+        app:title="@string/set_language"
+        android:summary="@string/languageSummary"/>
 
-    </PreferenceCategory>
+    <CheckBoxPreference
+        android:title="@string/sendEmailMode"
+        android:defaultValue="false"
+        android:summary="@string/sendEmailModeSummary"
+        android:key="sendEmailModeKey" />
 
 </PreferenceScreen>

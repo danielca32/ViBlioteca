@@ -41,13 +41,12 @@ public class MainActivity extends AppCompatActivity {
             String uid = mAuth.getCurrentUser().getUid();
 
             DatabaseReference db = FirebaseDatabase.getInstance().getReference();
-            Integer counter = 0;
             db.child("users/" + uid).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     DBHelper.setUser(snapshot.getValue(User.class));
                     fragment = new BooksFragment();
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commitAllowingStateLoss();
                 }
 
                 @Override

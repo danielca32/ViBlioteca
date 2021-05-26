@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="loan_time">Límit préstec</string>
+    <string name="action_search">Cerca</string>
+    <string name="imageViewContentDescription">Imatge de un llibre</string>
+    <string name="title">Títol</string>
+    <string name="author">Autor</string>
+    <string name="synopsis">Sinopsi</string>
+    <string name="description">Descripció</string>
+    <string name="publisherLabel">Editorial:</string>
+    <string name="publisher">Editorial</string>
+    <string name="publishingDateLabel">Data de publicació:</string>
+    <string name="publishingDate">Data de publicació</string>
+    <string name="genreLabel">Génere:</string>
+    <string name="genre">Génere</string>
+    <string name="editionLabel">Edició:</string>
+    <string name="edition">Edició</string>
+    <string name="loan">Préstec</string>
+    <string name="edit">Editar</string>
+    <string name="reduceStock">Reduïr stock en 1</string>
+    <string name="seeDetails">Veure detalls</string>
+    <string name="signOut">Tancar Sessió</string>
+    <string name="menuSettings">Opcions</string>
+    <string name="menuLoan">Préstecs</string>
+    <string name="menuBook">Llibres</string>
+    <string name="markAsReturned">Marca com a retornat</string>
+    <string name="extendLoan">Extendre préstec 7 dies</string>
+    <string name="preferences">Preferencies</string>
+    <string name="set_language" >Llenguatge</string>
+    <string name="loanSummary" >Escull durant quant de temps vols agafar en préstec els llibres.</string>
+    <string name="languageSummary" >Escull el llenguatge de la aplicació.</string>
+    <string name="lowDataMode">Restringir us de dades móbils</string>
+    <string name="lowDataModeSummary">Restringeix el ús de dades al mínim necessari perque l\'aplicació funcioni; es possible que les imatges deixin de mostrar-se.</string>
+    <string name="sendEmailMode">Rebre emails</string>
+    <string name="sendEmailModeSummary">Permetre que ViBlioteca m\'envii emails respecte a noves notícies i el estat dels meus préstecs.</string>
+</resources>

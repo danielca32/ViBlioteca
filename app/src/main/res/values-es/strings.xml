@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="loan_time">Limite préstamo</string>
+    <string name="action_search">Búsqueda</string>
+    <string name="imageViewContentDescription">Imagen de un libro</string>
+    <string name="title">Título</string>
+    <string name="author">Autor</string>
+    <string name="synopsis">Sinopsis</string>
+    <string name="description">Descripción</string>
+    <string name="publisherLabel">Editorial:</string>
+    <string name="publisher">Editorial</string>
+    <string name="publishingDateLabel">Fecha de publicación:</string>
+    <string name="publishingDate">Fecha de publicación</string>
+    <string name="genreLabel">Género:</string>
+    <string name="genre">Género</string>
+    <string name="editionLabel">Edición:</string>
+    <string name="edition">Edición</string>
+    <string name="loan">Préstamo</string>
+    <string name="edit">Editar</string>
+    <string name="reduceStock">Reducir stock en 1</string>
+    <string name="signOut">Cerrar Sesión</string>
+    <string name="menuSettings">Opciones</string>
+    <string name="menuLoan">Préstamos</string>
+    <string name="menuBook">Libros</string>
+    <string name="markAsReturned">Marcar como devuelto</string>
+    <string name="seeDetails">Ver detalles</string>
+    <string name="extendLoan">"Extender préstamo 7 días "</string>
+    <string name="preferences">Preferencias</string>
+    <string name="set_language" >Lenguaje</string>
+    <string name="loanSummary" >Escoge durante cuanto tiempo deseas tener en préstamo los libros.</string>
+    <string name="languageSummary" >Escoge el lenguaje de la aplicación.</string>
+    <string name="lowDataMode">Restringir uso de datos móviles</string>
+    <string name="lowDataModeSummary">Restringe el uso de datos al mínimo que necesita la aplicación para funcionar; es posible que las imágenes dejen de mostrarse.</string>
+    <string name="sendEmailMode">Recivir emails</string>
+    <string name="sendEmailModeSummary">Permitir que ViBlioteca me envie emails respecto a novedades o información relacionada con mis préstamos.</string>
+</resources>
