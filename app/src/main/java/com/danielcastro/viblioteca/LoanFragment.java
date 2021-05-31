@@ -49,15 +49,17 @@ public class LoanFragment extends Fragment  implements SearchView.OnQueryTextLis
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         DatabaseReference db = FirebaseDatabase.getInstance().getReference();
         User user = DBHelper.getUser();
         View rootView = inflater.inflate(R.layout.fragment_loan, container, false);
         RecyclerView recyclerView = rootView.findViewById(R.id.loanRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
-       adapter = new LoansRecyclerViewAdapter(this.getContext(), elements, originalItems, user, getParentFragmentManager(), db);
+        adapter = new LoansRecyclerViewAdapter(this.getContext(), elements, originalItems, user, getParentFragmentManager(), db);
         recyclerView.setAdapter(adapter);
         SearchView searchView = rootView.findViewById(R.id.loanSearchView);
         searchView.setOnQueryTextListener(this);
+
         Query myLoansQuery;
         if(user.getRole().equals("VIB_ADMIN")) {
             myLoansQuery = db.child("loans").orderByChild("user");

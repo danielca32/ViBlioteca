@@ -49,4 +49,13 @@
     <string name="lowDataModeSummary" >This mode will restrict de data usage to the minium necessary for the app to function, book images might stop being displayed.</string>
     <string name="sendEmailModeSummary">Allow ViBlioteca to send me news about the service or information related to my loans.</string>
     <string name="sendEmailMode">Receive emails</string>
+    <string name="increaseStock">Increase stock by 1</string>
+    <string name="book_successfully_loaned">Book successfully loaned</string>
+    <string name="error_no_books_left">ERROR: No books left to loan</string>
+    <string name="operation_not_available">Operation not available offline</string>
+    <string name="close_loans_first">Stock cannot be lower than loaned books</string>
+    <string name="successfully_edited">Book edited successfully</string>
+    <string name="success">Success</string>
+    <string name="error">Error</string>
+    <string name="google_sign_in_success">Google sign in successful</string>
 </resources>

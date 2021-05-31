@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f1f1f1"
     android:tooltipText="testLayout"
     android:orientation="vertical"
     tools:context=".BooksFragment">
@@ -12,10 +11,18 @@
     <androidx.appcompat.widget.SearchView
         android:id="@+id/bookSearchView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="?cardBackgroundColor"
+        app:defaultQueryHint="Search..."
+        app:iconifiedByDefault="false"
+        app:queryBackground="@android:color/transparent"
+        >
 
     </androidx.appcompat.widget.SearchView>
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?customColorValue"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/bookRecyclerView"
         android:layout_width="match_parent"
@@ -24,5 +31,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:background="?backgroundColor"
         app:layout_constraintTop_toTopOf="parent" />
 </LinearLayout>

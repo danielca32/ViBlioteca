@@ -1,16 +1,19 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
     <style name="Theme.ViBlioteca" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimary">@color/light_blue_500</item>
+        <item name="colorPrimaryVariant">@color/light_blue_700</item>
         <item name="colorOnPrimary">@color/black</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
+        <item name="cardBackgroundColor">@color/blue_gray_light_900</item>
+        <item name="backgroundColor">@color/blue_gray_light_900_dark</item>
+        <item name="android:textColor">@color/white</item>
         <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
+        <item name="customColorValue">@color/blue_gray_light_900_dark</item>
+
+        <!-- These three values are being used as a trick, they represent: returned,
+       not returned, and over deadline for the loans-->
+        <item name="boxBackgroundColor">#003200</item>
+        <item name="boxStrokeColor">#484500</item>
+        <item name="boxStrokeErrorColor">#510000</item>
     </style>
 </resources>

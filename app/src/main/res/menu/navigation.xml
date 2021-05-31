@@ -5,24 +5,31 @@
     android:id="@+id/library_books"
     android:icon="@drawable/ic_library_books_black_24dp"
     android:title="@string/menuBook"
+    android:iconTint="@color/light_blue_500"
+
 
     />
     <item
         android:id="@+id/loaned_books"
         android:icon="@drawable/ic_restore_black_24dp"
         android:title="@string/menuLoan"
+        android:iconTint="@color/light_blue_500"
         />
 
     <item
         android:id="@+id/settings_item"
         android:icon="@drawable/ic_settings_black_24dp"
         android:title="@string/menuSettings"
+        android:iconTint="@color/light_blue_700"
+
         />
 
     <item
         android:id="@+id/logout_item"
         android:icon="@drawable/ic_exit_to_app_black_24dp"
         android:title="@string/signOut"
+        android:iconTint="@color/light_blue_500"
+
         />
 
 

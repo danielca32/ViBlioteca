@@ -31,6 +31,15 @@
     <string name="languageSummary" >Escoge el lenguaje de la aplicación.</string>
     <string name="lowDataMode">Restringir uso de datos móviles</string>
     <string name="lowDataModeSummary">Restringe el uso de datos al mínimo que necesita la aplicación para funcionar; es posible que las imágenes dejen de mostrarse.</string>
-    <string name="sendEmailMode">Recivir emails</string>
+    <string name="sendEmailMode">Recibir emails</string>
     <string name="sendEmailModeSummary">Permitir que ViBlioteca me envie emails respecto a novedades o información relacionada con mis préstamos.</string>
+    <string name="increaseStock">Incrementar stock en 1</string>
+    <string name="book_successfully_loaned">Libro prestado correctamente</string>
+    <string name="error_no_books_left">ERROR: No quedan libros disponibles</string>
+    <string name="operation_not_available">Operación no disponible sin conexión</string>
+    <string name="close_loans_first">El stock no puede ser inferior a los libros en préstamo</string>
+    <string name="successfully_edited">Libro editado correctamente</string>
+    <string name="success">Éxito</string>
+    <string name="error">Error</string>
+    <string name="google_sign_in_success">Autorización con google exitosa</string>
 </resources>

@@ -22,13 +22,12 @@ public class MainActivity extends AppCompatActivity {
 
 
     private static Fragment fragment;
-    private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    final FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private BottomNavigationView bottomNavView;
 
     public static void setFragment(Fragment updateFragment) {
         fragment = updateFragment;
     }
-
 
 
     @Override
@@ -54,6 +53,17 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
+            DatabaseReference connectedReference = FirebaseDatabase.getInstance().getReference(".info/connected");
+            connectedReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    DBHelper.setConnected(snapshot.getValue(Boolean.class));
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                }
+            });
 
 
         }
@@ -80,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
                             intent.putExtra("logout", "yes");
                             startActivity(intent);
                         } catch (Error error) {
-                            Toast.makeText(getApplicationContext(), "Unknown Error, please restart", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), getString(R.string.error), Toast.LENGTH_LONG).show();
                         }
                     }
 

@@ -1,6 +1,9 @@
 package com.danielcastro.viblioteca;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 
 import com.google.firebase.database.DataSnapshot;
@@ -20,8 +23,10 @@ import java.util.TimeZone;
 public class DBHelper {
     private static final DatabaseReference db = FirebaseDatabase.getInstance().getReference();
     private static User user;
+    private static Boolean connected;
 
-    public static boolean loanBook(Book book, User user) {
+    public static boolean loanBook(Book book, User user, Context context) {
+        if(connected){
         if (Integer.parseInt(book.getLoaned()) < Integer.parseInt(book.getStock())) {
             book.setLoaned(String.valueOf((Integer.parseInt(book.getLoaned()) + 1)));
             TimeZone tz = TimeZone.getTimeZone("UTC");
@@ -40,15 +45,32 @@ public class DBHelper {
             return true;
         } else {
             return false;
+        }} else {
+            Toast.makeText(context, R.string.operation_not_available, Toast.LENGTH_LONG).show();
+            return false;
         }
     }
 
-    public static void reduceBookStock(Book book) {
+    public static void reduceBookStock(Book book, Context context) {
+        if(connected){
         if (Integer.parseInt(book.getLoaned()) < Integer.parseInt(book.getStock())) {
             if (Integer.parseInt(book.getStock()) > 0) {
                 book.setStock(String.valueOf((Integer.parseInt(book.getStock()) - 1)));
                 db.child("books").child(book.getISBN()).setValue(book);
             }
+        } else {
+            Toast.makeText(context, R.string.close_loans_first, Toast.LENGTH_LONG).show();
+
+        }
+        } else {
+            Toast.makeText(context, R.string.operation_not_available, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public static void increaseBookStock(Book book) {
+        if (Integer.parseInt(book.getLoaned()) < Integer.parseInt(book.getStock())) {
+                book.setStock(String.valueOf((Integer.parseInt(book.getStock()) + 1)));
+                db.child("books").child(book.getISBN()).setValue(book);
         }
     }
 
@@ -90,6 +112,14 @@ public class DBHelper {
     }
     public static void setUser(User setUser){
         user = setUser;
+    }
+
+    public static Boolean getConnected() {
+        return connected;
+    }
+
+    public static void setConnected(Boolean connected) {
+        DBHelper.connected = connected;
     }
 }
 

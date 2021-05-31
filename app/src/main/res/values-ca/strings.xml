@@ -33,4 +33,13 @@
     <string name="lowDataModeSummary">Restringeix el ús de dades al mínim necessari perque l\'aplicació funcioni; es possible que les imatges deixin de mostrar-se.</string>
     <string name="sendEmailMode">Rebre emails</string>
     <string name="sendEmailModeSummary">Permetre que ViBlioteca m\'envii emails respecte a noves notícies i el estat dels meus préstecs.</string>
+    <string name="increaseStock">Incrementar stock en 1</string>
+    <string name="book_successfully_loaned">Llibre agafat en préstec correctament</string>
+    <string name="error_no_books_left">ERROR: No queden llibres disponibles</string>
+    <string name="operation_not_available">Operació no disponible sense connexió</string>
+    <string name="close_loans_first">El stock no pot ser inferior als llibres en préstec</string>
+    <string name="successfully_edited">Llibre editat satisfactoriament</string>
+    <string name="success">Èxit</string>
+    <string name="error">Error</string>
+    <string name="google_sign_in_success">Autorització amb google exitosa</string>
 </resources>

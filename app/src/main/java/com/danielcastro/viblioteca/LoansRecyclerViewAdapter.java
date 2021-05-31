@@ -2,7 +2,9 @@ package com.danielcastro.viblioteca;
 
 
 import android.annotation.SuppressLint;
+import android.content.res.Resources;
 import android.graphics.Color;
+import android.util.TypedValue;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.ViewGroup;
@@ -22,6 +24,7 @@ import android.widget.TextView;
 import android.content.Context;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -48,7 +51,8 @@ public class LoansRecyclerViewAdapter extends RecyclerView.Adapter<LoansRecycler
     private final User user;
     private final FragmentManager fragmentManager;
     private StorageReference imageRef;
-    private String imageURL;
+    private final Resources.Theme theme;
+
 
     public LoansRecyclerViewAdapter(Context context, List<Loan> elements, List<Loan> originalItems, User user, FragmentManager fragmentManager, DatabaseReference db) {
         this.context = context;
@@ -57,6 +61,7 @@ public class LoansRecyclerViewAdapter extends RecyclerView.Adapter<LoansRecycler
         this.originalItems = originalItems;
         this.fragmentManager = fragmentManager;
         this.db = db;
+        theme = context.getTheme();
     }
 
 
@@ -72,28 +77,29 @@ public class LoansRecyclerViewAdapter extends RecyclerView.Adapter<LoansRecycler
     public void onBindViewHolder(@NonNull LoansRecyclerViewAdapter.ViewHolder holder, int position) {
         holder.getTxtElementISBN().setText(elements.get(position).getISBN());
         holder.getTxtElementTitle().setText(elements.get(position).getTitle());
-        holder.getTxtElementDateStart().setText(elements.get(position).getDate().substring(0, 9));
-        holder.getTxtElementDateEnd().setText(elements.get(position).getExpirationDate().substring(0, 9));
+        holder.getTxtElementDateStart().setText(elements.get(position).getDate().substring(0, 10));
+        holder.getTxtElementDateEnd().setText(elements.get(position).getExpirationDate().substring(0, 10));
+        holder.getTxtElementName().setText(elements.get(position).getName());
 
-        imageRef.child(elements.get(position).getImageUrl()).getDownloadUrl().addOnSuccessListener(uri -> {
-            imageURL = uri.toString();
-
-            Glide.with(holder.getImageElement().getContext())
-                    .load(imageURL)
-                    .into(holder.getImageElement());
-        });
+        Glide.with(holder.getImageElement().getContext())
+                .load(imageRef.child(elements.get(position).getImageUrl())).diskCacheStrategy(DiskCacheStrategy.DATA)
+                .into(holder.getImageElement());
 
         TimeZone tz = TimeZone.getTimeZone("UTC");
         @SuppressLint("SimpleDateFormat") DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
         df.setTimeZone(tz);
         java.util.Date date = Date.from(Instant.parse(elements.get(position).getExpirationDate()));
         Date actualDate = new Date();
+        TypedValue typedValue = new TypedValue();
         if (elements.get(position).isReturned()) {
-            holder.getCardView().setCardBackgroundColor(Color.rgb(237, 255, 230));
+            theme.resolveAttribute(R.attr.boxBackgroundColor, typedValue, true);
+          holder.getCardView().setCardBackgroundColor(typedValue.data);
         } else if (!elements.get(position).isReturned() && date.before(actualDate)) {
-            holder.getCardView().setCardBackgroundColor(Color.rgb(255, 230, 230));
+            theme.resolveAttribute(R.attr.boxStrokeErrorColor, typedValue, true);
+            holder.getCardView().setCardBackgroundColor(typedValue.data);
         } else if (date.after(actualDate)) {
-            holder.getCardView().setCardBackgroundColor(Color.rgb(255, 251, 230));
+            theme.resolveAttribute(R.attr.boxStrokeColor, typedValue, true);
+            holder.getCardView().setCardBackgroundColor(typedValue.data);
         }
     }
 
@@ -117,7 +123,7 @@ public class LoansRecyclerViewAdapter extends RecyclerView.Adapter<LoansRecycler
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private final CardView cardView;
-        private final TextView loanTextViewISBN, loanTextViewTitle, loanTextViewDateStart, loanTextViewDateEnd;
+        private final TextView loanTextViewISBN, loanTextViewTitle, loanTextViewDateStart, loanTextViewDateEnd, loanTextViewName;
         private final ImageView loanImageView;
 
         public ViewHolder(View itemView) {
@@ -129,6 +135,7 @@ public class LoansRecyclerViewAdapter extends RecyclerView.Adapter<LoansRecycler
             loanTextViewTitle = itemView.findViewById(R.id.loanTextViewTitle);
             loanTextViewDateStart = itemView.findViewById(R.id.loanTextViewDateStart);
             loanTextViewDateEnd = itemView.findViewById(R.id.loanTextViewDateReturn);
+            loanTextViewName = itemView.findViewById(R.id.loanTextViewName);
             loanImageView = itemView.findViewById(R.id.loanImageView);
             itemView.setOnClickListener(view -> {
                 int position = getAdapterPosition();
@@ -165,6 +172,10 @@ public class LoansRecyclerViewAdapter extends RecyclerView.Adapter<LoansRecycler
 
         public TextView getTxtElementDateEnd() {
             return loanTextViewDateEnd;
+        }
+
+        public TextView getTxtElementName() {
+            return loanTextViewName;
         }
 
         public CardView getCardView() {

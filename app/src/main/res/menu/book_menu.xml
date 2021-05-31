@@ -12,4 +12,8 @@
     <item
         android:id="@+id/menuDelete"
         android:title="@string/reduceStock" />
+
+    <item
+        android:id="@+id/menuIncrease"
+        android:title="@string/increaseStock" />
 </menu>

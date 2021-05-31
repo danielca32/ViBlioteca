@@ -54,6 +54,7 @@ public class BooksFragment extends Fragment implements SearchView.OnQueryTextLis
         adapter = new BooksRecyclerViewAdapter(this.getContext(), elements, originalItems, user, getParentFragmentManager());
         recyclerView.setAdapter(adapter); }
         SearchView searchView = rootView.findViewById(R.id.bookSearchView);
+
         searchView.setOnQueryTextListener(this);
 
         db.child("books").addValueEventListener(new ValueEventListener() {

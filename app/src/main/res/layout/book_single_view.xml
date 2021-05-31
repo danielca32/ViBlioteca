@@ -13,7 +13,6 @@
         android:layout_gravity="center"
         android:layout_marginHorizontal="10dp"
         android:layout_marginVertical="5dp"
-        card_view:cardBackgroundColor="#ffffff"
         card_view:contentPadding="4dp"
         card_view:cardCornerRadius="6dp"
         >
@@ -33,9 +32,15 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp">
+                android:paddingStart="8dp"
+                android:paddingEnd="0dp"
+                android:layout_weight="0.8"
+                >
 
                 <TextView
                     android:id="@+id/bookTextViewTitle"
@@ -50,6 +55,13 @@
                 <TextView
                     android:id="@+id/bookTextViewPublisher"
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+                <TextView
+                    android:layout_gravity="bottom|end"
+                    android:layout_weight="0.1"
+                    android:id="@+id/bookTextViewStock"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content" />
 
             </LinearLayout>

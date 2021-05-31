@@ -2,8 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/detailsLoanMenu"
-        android:title="@string/seeDetails"
-        />
+        android:title="@string/seeDetails" />
     <item
         android:id="@+id/extendLoanMenu"
         android:title="@string/extendLoan" />

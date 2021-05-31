@@ -96,7 +96,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
 
                  */
-                Toast.makeText(this, "Google Sign in Succeeded", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, R.string.google_sign_in_success, Toast.LENGTH_LONG).show();
                 if (account != null) {
                     firebaseAuthWithGoogle(account);
                 } else {
@@ -104,7 +104,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
             } catch (ApiException e) {
 
-                Toast.makeText(this, "Google Sign in Failed " + e, Toast.LENGTH_LONG).show();
+                Toast.makeText(this, R.string.error, Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -119,12 +119,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         // Update UI with the sign-in user's information
-                        Toast.makeText(LoginActivity.this, "Success", Toast.LENGTH_LONG).show();
+                        Toast.makeText(LoginActivity.this, getString(R.string.success), Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
                     } else {
                         // If sign-in fails to display a message to the user.
-                        Toast.makeText(LoginActivity.this, "Error" + task.getException(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(LoginActivity.this, getString(R.string.error) + task.getException(), Toast.LENGTH_LONG).show();
                     }
                 });
     }
@@ -141,8 +141,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         signInToGoogle();
     }
 
-}
 
+    @Override
+    public void onBackPressed() {
+
+        }}
 
 
 /*

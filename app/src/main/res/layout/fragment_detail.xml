@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#eaeaea"
     tools:context=".DetailFragment">
 
     <LinearLayout
@@ -20,7 +19,6 @@
             android:layout_marginHorizontal="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="5dp"
-            card_view:cardBackgroundColor="#ffffff"
             card_view:cardCornerRadius="6dp"
             card_view:contentPadding="8dp"
             card_view:contentPaddingBottom="8dp">
@@ -76,7 +74,6 @@
             android:layout_gravity="center"
             android:layout_marginHorizontal="10dp"
             android:layout_marginVertical="5dp"
-            card_view:cardBackgroundColor="#ffffff"
             card_view:cardCornerRadius="6dp"
             card_view:contentPadding="8dp"
             card_view:contentPaddingBottom="8dp">
@@ -115,7 +112,6 @@
             android:layout_gravity="center"
             android:layout_marginHorizontal="10dp"
             android:layout_marginVertical="5dp"
-            card_view:cardBackgroundColor="#ffffff"
             card_view:cardCornerRadius="6dp"
             card_view:contentPadding="8dp"
             card_view:contentPaddingBottom="8dp">
@@ -137,7 +133,11 @@
                         android:background="@null"
                         android:paddingStart="2dp"
                         android:paddingEnd="8dp"
-                        android:text="@string/ISBNLabel" />
+                        android:text="@string/ISBNLabel"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textStyle="bold"
+
+                        />
 
                     <EditText
                         android:id="@+id/detailTextViewISBN"
@@ -146,7 +146,9 @@
                         android:background="@null"
                         android:hint="@string/ISBN"
                         android:importantForAutofill="no"
-                        android:inputType="text" />
+                        android:inputType="text"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        />
                 </LinearLayout>
 
                 <LinearLayout
@@ -161,7 +163,11 @@
                         android:background="@null"
                         android:paddingStart="2dp"
                         android:paddingEnd="8dp"
-                        android:text="@string/publisherLabel" />
+                        android:text="@string/publisherLabel"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textStyle="bold"
+
+                        />
 
                     <EditText
                         android:id="@+id/detailTextViewPublisher"
@@ -170,7 +176,9 @@
                         android:background="@null"
                         android:hint="@string/publisher"
                         android:importantForAutofill="no"
-                        android:inputType="text" />
+                        android:inputType="text"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        />
 
 
                 </LinearLayout>
@@ -188,7 +196,11 @@
                         android:background="@null"
                         android:paddingStart="2dp"
                         android:paddingEnd="8dp"
-                        android:text="@string/publishingDateLabel" />
+                        android:text="@string/publishingDateLabel"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textStyle="bold"
+
+                        />
 
                     <EditText
                         android:id="@+id/detailTextViewPublishingTime"
@@ -197,7 +209,9 @@
                         android:background="@null"
                         android:hint="@string/publishingDate"
                         android:importantForAutofill="no"
-                        android:inputType="text" />
+                        android:inputType="text"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        />
                 </LinearLayout>
 
                 <LinearLayout
@@ -212,7 +226,11 @@
                         android:background="@null"
                         android:paddingStart="2dp"
                         android:paddingEnd="8dp"
-                        android:text="@string/genreLabel" />
+                        android:text="@string/genreLabel"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textStyle="bold"
+
+                        />
 
                     <EditText
                         android:id="@+id/detailTextViewGenre"
@@ -221,7 +239,9 @@
                         android:background="@null"
                         android:hint="@string/genre"
                         android:importantForAutofill="no"
-                        android:inputType="text" />
+                        android:inputType="text"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        />
                 </LinearLayout>
 
                 <LinearLayout
@@ -236,7 +256,10 @@
                         android:background="@null"
                         android:paddingStart="2dp"
                         android:paddingEnd="8dp"
-                        android:text="@string/editionLabel" />
+                        android:text="@string/editionLabel"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textStyle="bold"
+                        />
 
                     <EditText
                         android:id="@+id/detailTextViewEdition"
@@ -245,61 +268,40 @@
                         android:background="@null"
                         android:hint="@string/edition"
                         android:importantForAutofill="no"
-                        android:inputType="text" />
+                        android:inputType="text"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        />
                 </LinearLayout>
 
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
+        <Button
             android:id="@+id/detailCard_loan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginHorizontal="10dp"
-            android:layout_marginVertical="5dp"
-            android:backgroundTint="@color/purple_500"
-            card_view:cardBackgroundColor="#ffffff"
-            card_view:cardCornerRadius="6dp"
-            card_view:contentPadding="4dp"
-            card_view:contentPaddingBottom="8dp">
+            android:background="@null"
+            android:text="@string/loan"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/white"
+            android:textStyle="bold|italic"
+            />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="24dp"
-                android:layout_gravity="center"
-                android:background="@null"
-                android:text="@string/loan"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="@color/white"
-                android:textStyle="bold|italic" />
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
+        <Button
             android:id="@+id/detailCard_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginHorizontal="10dp"
-            android:layout_marginVertical="5dp"
-            android:backgroundTint="@color/purple_500"
-            card_view:cardBackgroundColor="#ffffff"
-            card_view:cardCornerRadius="6dp"
-            card_view:contentPadding="4dp"
-            card_view:contentPaddingBottom="8dp">
-            
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="24dp"
-                android:layout_gravity="center"
-                android:background="@null"
-                android:text="@string/edit"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="@color/white"
-                android:textStyle="bold|italic" />
-        </androidx.cardview.widget.CardView>
+            android:text="@string/edit"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/white"
+            android:textStyle="bold|italic"
+            android:layout_marginBottom="6dp"/>
     </LinearLayout>
 </ScrollView>
