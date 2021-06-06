@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name" translatable="false">ViBlioteca</string>
+
+    <string-array name="loan_time_array">
+        <item>7 Dies</item>
+        <item>14 Dies</item>
+        <item>21 Dies</item>
+        <item>28 Dies</item>
+    </string-array>
+
+    <string-array name="set_language_array">
+        <item>Anglès</item>
+        <item>Espanyol</item>
+        <item>Català</item>
+    </string-array>
+
     <string name="loan_time">Límit préstec</string>
     <string name="action_search">Cerca</string>
     <string name="imageViewContentDescription">Imatge de un llibre</string>

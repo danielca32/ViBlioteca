@@ -19,6 +19,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
+/**
+ * @author dcast
+ *
+ */
 @SuppressLint("SimpleDateFormat")
 public class DBHelper {
     private static final DatabaseReference db = FirebaseDatabase.getInstance().getReference();

@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <string-array name="loan_time_array">
+        <item>7 Días</item>
+        <item>14 Días</item>
+        <item>21 Días</item>
+        <item>28 Días</item>
+    </string-array>
+
+    <string-array name="set_language_array">
+        <item>Inglés</item>
+        <item>Español</item>
+        <item>Catalán</item>
+    </string-array>
+
     <string name="loan_time">Limite préstamo</string>
     <string name="action_search">Búsqueda</string>
     <string name="imageViewContentDescription">Imagen de un libro</string>

@@ -3,7 +3,6 @@ package com.danielcastro.viblioteca;
 
 import android.annotation.SuppressLint;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.util.TypedValue;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -22,7 +21,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import android.content.Context;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.firebase.database.DataSnapshot;

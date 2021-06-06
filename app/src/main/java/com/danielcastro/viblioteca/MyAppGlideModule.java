@@ -13,6 +13,9 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.InputStream;
 
+/**
+ * Configuration class that Glide uses to register the types of data that it will need to work with.
+ */
 
 @GlideModule
 public class MyAppGlideModule extends AppGlideModule {

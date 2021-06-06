@@ -35,7 +35,6 @@ public class BooksRecyclerViewAdapter extends RecyclerView.Adapter<BooksRecycler
     private final User user;
     private final FragmentManager fragmentManager;
     private StorageReference imageRef;
-    private String imageURL;
 
     public BooksRecyclerViewAdapter(Context context, List<Book> elements, List<Book> originalItems, User user, FragmentManager fragmentManager) {
         this.context = context;

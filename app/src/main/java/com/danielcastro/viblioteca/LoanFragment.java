@@ -55,7 +55,7 @@ public class LoanFragment extends Fragment  implements SearchView.OnQueryTextLis
         View rootView = inflater.inflate(R.layout.fragment_loan, container, false);
         RecyclerView recyclerView = rootView.findViewById(R.id.loanRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
-        adapter = new LoansRecyclerViewAdapter(this.getContext(), elements, originalItems, user, getParentFragmentManager(), db);
+        adapter = new LoansRecyclerViewAdapter(this.requireContext(), elements, originalItems, user, getParentFragmentManager(), db);
         recyclerView.setAdapter(adapter);
         SearchView searchView = rootView.findViewById(R.id.loanSearchView);
         searchView.setOnQueryTextListener(this);
@@ -90,12 +90,6 @@ public class LoanFragment extends Fragment  implements SearchView.OnQueryTextLis
     public void onStart() {
         super.onStart();
     }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
-
 
     @Override
     public boolean onQueryTextSubmit(String query) {

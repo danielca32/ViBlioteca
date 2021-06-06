@@ -3,11 +3,8 @@ package com.danielcastro.viblioteca;
 import android.content.Context;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +15,6 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -30,7 +25,6 @@ public class DetailFragment extends Fragment {
     public static final String BOOK_CON = "Book";
 
     private final FirebaseStorage storage = FirebaseStorage.getInstance();
-    private String imageURL;
     private User user;
 
     private Book book;
@@ -115,15 +109,7 @@ public class DetailFragment extends Fragment {
                     book.setTitle(detailTextViewTitle.getText().toString());
                     book.setPublisher(detailTextViewPublisher.getText().toString());
                     DatabaseReference db = FirebaseDatabase.getInstance().getReference();
-                    db.child("books").child(book.getISBN()).setValue(book).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            Toast toast = Toast.makeText(requireContext(), R.string.successfully_edited, Toast.LENGTH_LONG);
-
-                                toast.show();
-                            System.out.println("a");
-                        }
-                    });
+                    db.child("books").child(book.getISBN()).setValue(book).addOnCompleteListener(task -> Toast.makeText(requireContext(), R.string.successfully_edited, Toast.LENGTH_LONG).show());
                 });
             }
 
