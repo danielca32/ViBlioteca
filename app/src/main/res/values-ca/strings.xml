@@ -56,5 +56,7 @@
     <string name="successfully_edited">Llibre editat satisfactoriament</string>
     <string name="success">Èxit</string>
     <string name="error">Error</string>
-    <string name="google_sign_in_success">Autorització amb google exitosa</string>
+    <string name="google_sign_in_success">Autorització amb Google exitosa</string>
+    <string name="book_already_loaned">Ja tens en préstec aquest llibre!</string>
+    <string name="too_many_books_loaned">No pots agafar més llibres!</string>
 </resources>

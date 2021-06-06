@@ -58,4 +58,6 @@
     <string name="success">Success</string>
     <string name="error">Error</string>
     <string name="google_sign_in_success">Google sign in successful</string>
+    <string name="book_already_loaned">Book already loaned!</string>
+    <string name="too_many_books_loaned">You can\'t loan more books!</string>
 </resources>
