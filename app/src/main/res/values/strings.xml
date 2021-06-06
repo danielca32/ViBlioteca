@@ -31,12 +31,12 @@
     <string name="genre">Genre</string>
     <string name="editionLabel">Edition:</string>
     <string name="edition">Edition</string>
-    <string name="loan">Loan</string>
+    <string name="loan">Loan Book</string>
     <string name="edit">Edit</string>
     <string name="reduceStock">Reduce stock by 1</string>
     <string name="seeDetails">See details</string>
-    <string name="extendLoan">Extend loan 7 days</string>
-    <string name="markAsReturned">Mark as returned</string>
+    <string name="extendLoan">Extend Loan</string>
+    <string name="markAsReturned">Mark as Returned</string>
     <string name="menuBook">Books</string>
     <string name="menuLoan">Loans</string>
     <string name="menuSettings">Settings</string>
@@ -60,4 +60,5 @@
     <string name="google_sign_in_success">Google sign in successful</string>
     <string name="book_already_loaned">Book already loaned!</string>
     <string name="too_many_books_loaned">You can\'t loan more books!</string>
+    <string name="max_time_reached">You can\'t extend more this loan!</string>
 </resources>

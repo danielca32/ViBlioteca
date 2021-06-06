@@ -208,7 +208,7 @@ public class LoansRecyclerViewAdapter extends RecyclerView.Adapter<LoansRecycler
                     }
                 });
             } else if (itemId == R.id.extendLoanMenu) {
-                DBHelper.extendLoan(elements.get(menuPosition));
+                DBHelper.extendLoan(elements.get(menuPosition), context);
             } else if (itemId == R.id.markAsReturnedMenu) {
                 DBHelper.returnLoan(elements.get(menuPosition));
             }

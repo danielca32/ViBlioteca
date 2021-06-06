@@ -21,6 +21,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
@@ -71,8 +72,9 @@ public class DBHelper {
                             } else {
                                 Toast.makeText(context, R.string.book_already_loaned, Toast.LENGTH_LONG).show();
                             }
+                        } else {
+                            Toast.makeText(context, R.string.too_many_books_loaned, Toast.LENGTH_LONG).show();
                         }
-                        Toast.makeText(context, R.string.too_many_books_loaned, Toast.LENGTH_LONG).show();
                     }
 
                     @Override
@@ -131,18 +133,23 @@ public class DBHelper {
         });
     }
 
-    public static void extendLoan(Loan loan) {
+    public static void extendLoan(Loan loan, Context context) {
         TimeZone tz = TimeZone.getTimeZone("UTC");
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
         df.setTimeZone(tz);
         java.util.Date date = Date.from(Instant.parse(loan.getExpirationDate()));
+        java.util.Date dateFirstLoan = Date.from(Instant.parse(loan.getDate()));
+        Long diffInMil = Math.abs(date.getTime() - dateFirstLoan.getTime());
+        diffInMil = TimeUnit.DAYS.convert(diffInMil, TimeUnit.MILLISECONDS);
+        if(diffInMil < 60){
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
         cal.add(Calendar.DATE, 7);
         String returnAsISO = df.format(cal.getTime());
         loan.setExpirationDate(returnAsISO);
-
         db.child("loans").child(loan.getKey()).setValue(loan);
+        Toast.makeText(context, R.string.success, Toast.LENGTH_LONG).show();}else
+        {Toast.makeText(context, R.string.max_time_reached, Toast.LENGTH_LONG).show();}
     }
 
     public static User getUser() {
