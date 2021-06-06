@@ -23,11 +23,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link LoanFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class LoanFragment extends Fragment  implements SearchView.OnQueryTextListener{
     private final List<Loan> elements = new ArrayList<>();
     private final List<Loan> originalItems = new ArrayList<>();
@@ -66,6 +61,7 @@ public class LoanFragment extends Fragment  implements SearchView.OnQueryTextLis
         } else {
             myLoansQuery = db.child("loans").orderByChild("user").equalTo(user.getUID());
         }
+
         myLoansQuery.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -73,6 +69,7 @@ public class LoanFragment extends Fragment  implements SearchView.OnQueryTextLis
                 for (DataSnapshot item : dataSnapshot.getChildren()) {
                     Loan loan = item.getValue(Loan.class);
                     elements.add(loan);
+
                 }
                 originalItems.addAll(elements);
                 adapter.notifyDataSetChanged();

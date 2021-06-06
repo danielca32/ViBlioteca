@@ -29,16 +29,16 @@
     <string name="genre">Género</string>
     <string name="editionLabel">Edición:</string>
     <string name="edition">Edición</string>
-    <string name="loan">Préstamo</string>
+    <string name="loan">Pedir Préstamo</string>
     <string name="edit">Editar</string>
     <string name="reduceStock">Reducir stock en 1</string>
     <string name="signOut">Cerrar Sesión</string>
     <string name="menuSettings">Opciones</string>
     <string name="menuLoan">Préstamos</string>
     <string name="menuBook">Libros</string>
-    <string name="markAsReturned">Marcar como devuelto</string>
+    <string name="markAsReturned">Marcar como Devuelto</string>
     <string name="seeDetails">Ver detalles</string>
-    <string name="extendLoan">"Extender préstamo 7 días "</string>
+    <string name="extendLoan">Extender Préstamo</string>
     <string name="preferences">Preferencias</string>
     <string name="set_language" >Lenguaje</string>
     <string name="loanSummary" >Escoge durante cuanto tiempo deseas tener en préstamo los libros.</string>
@@ -55,5 +55,8 @@
     <string name="successfully_edited">Libro editado correctamente</string>
     <string name="success">Éxito</string>
     <string name="error">Error</string>
-    <string name="google_sign_in_success">Autorización con google exitosa</string>
+    <string name="google_sign_in_success">Autorización con Google exitosa</string>
+    <string name="book_already_loaned">Ya tienes este libro!</string>
+    <string name="too_many_books_loaned">No puedes pedir más libros!</string>
+    <string name="max_time_reached">No se puede extender más!</string>
 </resources>

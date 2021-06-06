@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">ViBlioteca</string>
 
     <string-array name="loan_time_array">
         <item>7 Dies</item>
@@ -30,7 +29,7 @@
     <string name="genre">Génere</string>
     <string name="editionLabel">Edició:</string>
     <string name="edition">Edició</string>
-    <string name="loan">Préstec</string>
+    <string name="loan">Demanar Préstec</string>
     <string name="edit">Editar</string>
     <string name="reduceStock">Reduïr stock en 1</string>
     <string name="seeDetails">Veure detalls</string>
@@ -38,8 +37,8 @@
     <string name="menuSettings">Opcions</string>
     <string name="menuLoan">Préstecs</string>
     <string name="menuBook">Llibres</string>
-    <string name="markAsReturned">Marca com a retornat</string>
-    <string name="extendLoan">Extendre préstec 7 dies</string>
+    <string name="markAsReturned">Marca com a Retornat</string>
+    <string name="extendLoan">Extendre Préstec</string>
     <string name="preferences">Preferencies</string>
     <string name="set_language" >Llenguatge</string>
     <string name="loanSummary" >Escull durant quant de temps vols agafar en préstec els llibres.</string>
@@ -56,5 +55,8 @@
     <string name="successfully_edited">Llibre editat satisfactoriament</string>
     <string name="success">Èxit</string>
     <string name="error">Error</string>
-    <string name="google_sign_in_success">Autorització amb google exitosa</string>
+    <string name="google_sign_in_success">Autorització amb Google exitosa</string>
+    <string name="book_already_loaned">Ja tens en préstec aquest llibre!</string>
+    <string name="too_many_books_loaned">No pots agafar més llibres!</string>
+    <string name="max_time_reached">No pots extendre més el préstec!</string>
 </resources>

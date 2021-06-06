@@ -113,13 +113,7 @@ public class DetailFragment extends Fragment {
                 });
             }
 
-            loanCardView.setOnClickListener(v -> {
-                if (DBHelper.loanBook(book, user, context)) {
-                    Toast.makeText(getContext(), R.string.book_successfully_loaned, Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(getContext(), R.string.error_no_books_left, Toast.LENGTH_LONG).show();
-                }
-            });
+            loanCardView.setOnClickListener((View v) -> DBHelper.loanBook(book, user, context));
 
             Glide.with(context).load(imageRef.child(book.getImageUrl())).diskCacheStrategy(DiskCacheStrategy.RESOURCE).into(detailImageView);
         }

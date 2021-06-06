@@ -147,11 +147,10 @@ public class LoansRecyclerViewAdapter extends RecyclerView.Adapter<LoansRecycler
             menuInflater.inflate(R.menu.loan_menu, popupMenu.getMenu());
             popupMenu.setOnMenuItemClickListener(new Menu(position));
             if (elements.get(position).isReturned()) {
-                popupMenu.getMenu().getItem(1).setEnabled(false);
+                popupMenu.getMenu().getItem(1).setVisible(false);
             }
             if (!user.getRole().equals("VIB_ADMIN") || elements.get(position).isReturned()) {
-                popupMenu.getMenu().getItem(2).setEnabled(false);
-
+                popupMenu.getMenu().getItem(2).setVisible(false);
             }
             popupMenu.show();
         }
@@ -209,7 +208,7 @@ public class LoansRecyclerViewAdapter extends RecyclerView.Adapter<LoansRecycler
                     }
                 });
             } else if (itemId == R.id.extendLoanMenu) {
-                DBHelper.extendLoan(elements.get(menuPosition));
+                DBHelper.extendLoan(elements.get(menuPosition), context);
             } else if (itemId == R.id.markAsReturnedMenu) {
                 DBHelper.returnLoan(elements.get(menuPosition));
             }
